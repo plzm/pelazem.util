@@ -3,13 +3,9 @@ name: Build
 on:
   workflow_dispatch:
   push:
-    branches:
-      - 'feature/*'
-      - 'test/*'
+    paths:
+      - 'src/**'
   pull_request:
-    branches:
-      - main
-      - 'release/*'
 
 env:
   SRC_PATH: './src/'
