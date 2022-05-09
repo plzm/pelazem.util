@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pelazem.util", "pelazem.util\pelazem.util.csproj", "{07EAFCBF-4052-4A5E-9709-E83BF1DB1CAA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pelazem.util.tests", "pelazem.util.tests\pelazem.util.tests.csproj", "{BE210A1D-EDCB-4DBC-B51E-2B872DB1C830}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07EAFCBF-4052-4A5E-9709-E83BF1DB1CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07EAFCBF-4052-4A5E-9709-E83BF1DB1CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07EAFCBF-4052-4A5E-9709-E83BF1DB1CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07EAFCBF-4052-4A5E-9709-E83BF1DB1CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE210A1D-EDCB-4DBC-B51E-2B872DB1C830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE210A1D-EDCB-4DBC-B51E-2B872DB1C830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE210A1D-EDCB-4DBC-B51E-2B872DB1C830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE210A1D-EDCB-4DBC-B51E-2B872DB1C830}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {156236F2-6EC8-4EF0-8182-D107D4876EEB}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,17 @@
+name: Validate GHA Workflows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  lint_workflows:
+    name: Lint Workflows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Action Linting
+        uses: cfy9/action-linting@main
+        with:
+          additional_arguments: "-color"
