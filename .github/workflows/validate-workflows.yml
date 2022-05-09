@@ -2,6 +2,9 @@ name: Validate GHA Workflows
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/**'
 
 jobs:
   lint_workflows:
