@@ -29,10 +29,9 @@ namespace pelazem.util
 			if (makeFileUrlPathSafe)
 			{
 				result = result
-				.TrimEnd(paddingChars)
-				.Replace('+', '-')
-				.Replace('/', '_')
-				;
+					.TrimEnd(paddingChars)
+					.Replace('+', '-')
+					.Replace('/', '_');
 			}
 
 			return result;
@@ -59,8 +58,7 @@ namespace pelazem.util
 			{
 				string raw = encodedText
 					.Replace('-', '+')
-					.Replace('_', '/')
-				;
+					.Replace('_', '/');
 
 				// Add padding at end if not there already
 				if (!raw.EndsWith(paddingString))

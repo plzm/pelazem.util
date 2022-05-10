@@ -59,6 +59,5 @@ namespace pelazem.util
 
 			return result;
 		}
-
 	}
 }

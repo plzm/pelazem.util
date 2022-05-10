@@ -79,26 +79,4 @@ namespace pelazem.util
 
 		#endregion
 	}
-
-	public class OpResult<T> : OpResult
-	{
-		#region Variables
-
-		private Dictionary<string, T> _outputs = null;
-
-		#endregion
-
-		public new T Output { get; set; } = default(T);
-
-		public new Dictionary<string, T> Outputs
-		{
-			get
-			{
-				if (_outputs == null)
-					_outputs = new Dictionary<string, T>();
-
-				return _outputs;
-			}
-		}
-	}
 }
