@@ -1,3 +1,4 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)  
 ![Validate GHA Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)  
 ![Build and Test](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml/badge.svg)  
 ![Code Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/plzm/3ab4e24d2617826260a3536b2e456d12/raw/pelazem.util.tests.coverage.json)  
@@ -25,3 +26,9 @@ pelazem.util: a C# utility library targeting .NET 6.0 and .NET Standard 2.1.
 #### 2. All assets here are provided by me "as is". Use at your own risk.
 #### 3. I am not representing my employer with any files, code, or other assets here, and my employer assumes no liability whatsoever for any use of these files, code, or assets.
 #### 4. DO NOT USE ANY ASSET HERE IN A PRODUCTION ENVIRONMENT WITHOUT APPROPRIATE REVIEWS, TESTS, and APPROVALS IN YOUR ENVIRONMENT.
+
+---
+
+NOTES on Code Coverage badge.  
+Using: https://github.com/marketplace/actions/net-code-coverage-badge  
+See also: https://github.com/simon-k/dotnet-code-coverage-badge
