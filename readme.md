@@ -29,6 +29,11 @@ pelazem.util: a C# utility library targeting .NET 6.0 and .NET Standard 2.1.
 
 ---
 
-NOTES on Code Coverage badge.  
+**Code Coverage badge.**  
 Using: https://github.com/marketplace/actions/net-code-coverage-badge  
-See also: https://github.com/simon-k/dotnet-code-coverage-badge
+See also: https://github.com/simon-k/dotnet-code-coverage-badge  
+
+**PR Metrics**  
+Using: https://github.com/marketplace/actions/pr-metrics  
+See also: https://github.com/microsoft/PR-Metrics  
+
