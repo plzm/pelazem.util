@@ -158,6 +158,7 @@ namespace pelazem.util
 				return false;
 
 			return
+			(
 				type.Equals(TypeByte) ||
 				type.Equals(TypeByteNullable) ||
 				type.Equals(TypeSByte) ||
@@ -180,7 +181,7 @@ namespace pelazem.util
 				type.Equals(TypeUInt64Nullable) ||
 				type.Equals(TypeSingle) ||
 				type.Equals(TypeSingleNullable)
-			;
+			);
 		}
 
 		public static bool IsPrimitive(PropertyInfo prop)
@@ -196,11 +197,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static bool IsPrimitive(Type type)
 		{
-			return
-				PrimitiveTypes.Contains(type)
-				||
-				PrimitiveNullableTypes.Contains(type)
-			;
+			return (PrimitiveTypes.Contains(type) || PrimitiveNullableTypes.Contains(type));
 		}
 
 		/// <summary>
@@ -368,13 +365,11 @@ namespace pelazem.util
 			if (expression.NodeType == ExpressionType.Convert || expression.NodeType == ExpressionType.ConvertChecked)
 				expression = ((UnaryExpression)expression).Operand;
 
-
 			// make sure what was passed is really a property (i.e. member accessor) and if not, throw and leave
 			MemberExpression memberExpression = expression as MemberExpression;
 
 			if (memberExpression == null)
 				return result;
-
 
 			// //////////
 			// do some additional sanity checks
@@ -389,7 +384,6 @@ namespace pelazem.util
 				return result;
 			// end sanity checks
 			// //////////
-
 
 			// Finally (!) retrieve the property's PropertyInfo and return it
 			result = memberExpression.Member as PropertyInfo;
