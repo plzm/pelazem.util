@@ -34,13 +34,6 @@ jobs:
         run: dotnet test --nologo --no-restore --no-build --verbosity normal -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover
         working-directory: "${{ env.SRC_PATH }}pelazem.util.tests/"
 
-      - name: PR Metrics
-        if: ${{ success() && github.event_name == 'pull_request' }}
-        uses: microsoft/PR-Metrics@v1.4.1
-        env:
-          PR_METRICS_ACCESS_TOKEN: ${{ secrets.PR_METRICS_ACCESS_TOKEN }}
-        continue-on-error: true
-
       - name: Create Test Coverage Badge
         if: success()
         uses: simon-k/dotnet-code-coverage-badge@v1.0.0
