@@ -6,19 +6,19 @@
 
 ## Utility Library
 
-pelazem.util: a C# utility library targeting .NET 6.0 and .NET Standard 2.1.
+pelazem.util: a C# utility library with build targets for .NET 6.0 and .NET Standard 2.1.
 
-- Class/Base.cs: a simple abstract base class which implements a property change notification pattern. Includes a toggle to fire events (useful to turn off in certain bulk scenarios) and a semaphore whether the object is in a property changed state.
-- Configuration/ConfigUtil.cs: implements configuration build with optional JSON settings file and environment variables.
-- Extension/CollectionExtensionMethods.cs: extension methods for ICollection<T>, IEnumerable<T>, IDictionary<TKey, TValue>. Add items in bulk; get list as a delimited string with specified delimiter and other capabilities.
-- Extension/EncodingExtensionMethods.cs: extension methods for System.Text.Encoding to base64 encode/decode.
-- Extension/ReflectionExtensionMethods.cs: extension methods for System.Reflection.PropertyInfo to get or set property values through reflection.
-- Constants.cs: a few common string format codes.
-- Converter.cs: yet another safe type converter. Includes string to Timespan converter that includes some error checking and other smarts.
-- ErrorUtil.cs: utility methods to prettify Exception messages into strings suitable for display or external storage.
-- OpResult.cs: a result class to return rich result data from methods in a standard, non-ref way.
-- TypeUtil.cs: lots of type and reflection utility methods, including checks whether a PropertyInfo or Type is numeric or primitive, getting type aliases, reflecting over a type to get its properties (all or just primitive or complex), ref type value comparisons, and property value setter with conversion of passed value to property type, and getting a property from a property selector Expression<Func<T>>.
-- ValidationResult.cs: helper for classes which need to track whether their properties are in a valid state, and quickly getting validity status.
+- [Class/Base.cs](src/pelazem.util/Class/Base.cs): a simple abstract base class which implements a property change notification pattern. Includes a toggle to fire events (useful to turn off in certain bulk scenarios) and a semaphore whether the object is in a property changed state.
+- [Configuration/ConfigUtil.cs](src/pelazem.util/Configuration/ConfigUtil.cs): implements configuration build with optional JSON settings file and environment variables.
+- [Extension/CollectionExtensionMethods.cs](src/pelazem.util/Extension/CollectionExtensionMethods.cs): extension methods for ICollection<T>, IEnumerable<T>, IDictionary<TKey, TValue>. Add items in bulk; get list as a delimited string with specified delimiter and other capabilities.
+- [Extension/EncodingExtensionMethods.cs](src/pelazem.util.tests/EncodingExtensionMethodTests.cs): extension methods for System.Text.Encoding to base64 encode/decode.
+- [Extension/ReflectionExtensionMethods.cs](src/pelazem.util/Extension/ReflectionExtensionMethods.cs): extension methods for System.Reflection.PropertyInfo to get or set property values through reflection.
+- [Constants.cs](src/pelazem.util/Constants.cs): a few common string format codes.
+- [Converter.cs](src/pelazem.util/Converter.cs): yet another safe type converter. Includes string to Timespan converter that includes some error checking and other smarts.
+- [ErrorUtil.cs](src/pelazem.util/ErrorUtil.cs): utility methods to prettify Exception messages into strings suitable for display or external storage.
+- [OpResult.cs](src/pelazem.util/OpResult.cs): a result class to return rich result data from methods in a standard, non-ref way.
+- [TypeUtil.cs](src/pelazem.util/TypeUtil.cs): lots of type and reflection utility methods, including checks whether a PropertyInfo or Type is numeric or primitive, getting type aliases, reflecting over a type to get its properties (all or just primitive or complex), ref type value comparisons, and property value setter with conversion of passed value to property type, and getting a property from a property selector Expression<Func<T>>.
+- [ValidationResult.cs](src/pelazem.util/ValidationResult.cs): helper for classes which need to track whether their properties are in a valid state, and quickly getting validity status.
 
 ---
 
@@ -30,10 +30,12 @@ pelazem.util: a C# utility library targeting .NET 6.0 and .NET Standard 2.1.
 
 ---
 
-**Whitesource**
+##### Apps and Marketplace Actions
+
+**Whitesource**  
 Using: https://www.whitesourcesoftware.com/repo-integration/
 
-**GHA Linter**
+**GHA Linter**  
 Using: https://github.com/marketplace/actions/github-actions-linting
 Repo: https://github.com/cfy9/action-linting
 
@@ -45,6 +47,6 @@ Repo: https://github.com/microsoft/PR-Metrics
 Using: https://github.com/marketplace/actions/net-code-coverage-badge  
 Repo: https://github.com/simon-k/dotnet-code-coverage-badge  
 
-**Codecov.io**
+**Codecov.io**  
 Using: https://github.com/marketplace/actions/codecov
 Repo: https://github.com/codecov/codecov-action
