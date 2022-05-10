@@ -40,10 +40,6 @@ Using: https://www.whitesourcesoftware.com/repo-integration/
 Using: https://github.com/marketplace/actions/github-actions-linting
 Repo: https://github.com/cfy9/action-linting
 
-**PR Metrics**  
-Using: https://github.com/marketplace/actions/pr-metrics  
-Repo: https://github.com/microsoft/PR-Metrics  
-
 **Code Coverage badge.**  
 Using: https://github.com/marketplace/actions/net-code-coverage-badge  
 Repo: https://github.com/simon-k/dotnet-code-coverage-badge  
