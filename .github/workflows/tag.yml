@@ -25,7 +25,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           RELEASE_BRANCHES: main
-          INITIAL_VERSION: v6.0.0.0
+          INITIAL_VERSION: 6.0.0.0
           DEFAULT_BUMP: minor
           WITH_V: true
           VERBOSE: true
