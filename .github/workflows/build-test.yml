@@ -1,0 +1,51 @@
+name: Build and Test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/**'
+  pull_request:
+
+env:
+  SRC_PATH: './src/'
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ${{ env.SRC_PATH }}
+
+      - name: dotnet build
+        if: success()
+        run: dotnet build --no-restore
+        working-directory: ${{ env.SRC_PATH }}
+
+      - name: dotnet test
+        if: success()
+        run: dotnet test --nologo --no-restore --no-build --verbosity normal -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover
+        working-directory: "${{ env.SRC_PATH }}pelazem.util.tests/"
+
+      - name: Create Test Coverage Badge
+        uses: simon-k/dotnet-code-coverage-badge@v1.0.0
+        id: create_coverage_badge
+        with:
+          label: Unit Test Coverage
+          color: brightgreen
+          path: "${{ env.SRC_PATH }}pelazem.util.tests/TestResults/coverage.net6.0.opencover.xml"
+          gist-filename: pelazem.util.tests.coverage.json
+          gist-id: 3ab4e24d2617826260a3536b2e456d12
+          gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
+
+      - name: Print Code Coverage
+        run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
+
+      - name: Print Code Coverage Badge Data
+        run: echo "Badge data ${{steps.create_coverage_badge.outputs.badge}}"
+
