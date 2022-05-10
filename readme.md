@@ -30,11 +30,21 @@ pelazem.util: a C# utility library targeting .NET 6.0 and .NET Standard 2.1.
 
 ---
 
-**Code Coverage badge.**  
-Using: https://github.com/marketplace/actions/net-code-coverage-badge  
-See also: https://github.com/simon-k/dotnet-code-coverage-badge  
+**Whitesource**
+Using: https://www.whitesourcesoftware.com/repo-integration/
+
+**GHA Linter**
+Using: https://github.com/marketplace/actions/github-actions-linting
+Repo: https://github.com/cfy9/action-linting
 
 **PR Metrics**  
 Using: https://github.com/marketplace/actions/pr-metrics  
-See also: https://github.com/microsoft/PR-Metrics  
+Repo: https://github.com/microsoft/PR-Metrics  
 
+**Code Coverage badge.**  
+Using: https://github.com/marketplace/actions/net-code-coverage-badge  
+Repo: https://github.com/simon-k/dotnet-code-coverage-badge  
+
+**Codecov.io**
+Using: https://github.com/marketplace/actions/codecov
+Repo: https://github.com/codecov/codecov-action
