@@ -33,6 +33,7 @@ jobs:
         working-directory: "${{ env.SRC_PATH }}pelazem.util.tests/"
 
       - name: Create Test Coverage Badge
+        if: success()
         uses: simon-k/dotnet-code-coverage-badge@v1.0.0
         id: create_coverage_badge
         with:
@@ -44,8 +45,16 @@ jobs:
           gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}
 
       - name: Print Code Coverage
+        if: success()
         run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"
 
       - name: Print Code Coverage Badge Data
+        if: success()
         run: echo "Badge data ${{steps.create_coverage_badge.outputs.badge}}"
 
+      - name: PR Metrics
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        uses: microsoft/PR-Metrics@v1.4.1
+        env:
+          PR_METRICS_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
