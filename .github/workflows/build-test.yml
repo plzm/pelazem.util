@@ -58,5 +58,5 @@ jobs:
         if: ${{ success() && github.event_name == 'pull_request' }}
         uses: microsoft/PR-Metrics@v1.4.1
         env:
-          PR_METRICS_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_METRICS_ACCESS_TOKEN: ${{ secrets.PR_METRICS_ACCESS_TOKEN }}
         continue-on-error: true
