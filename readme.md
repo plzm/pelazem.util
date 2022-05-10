@@ -1,4 +1,4 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)  
 ![Validate GHA Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)  
 ![Build and Test](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml/badge.svg)  
 ![Code Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/plzm/3ab4e24d2617826260a3536b2e456d12/raw/pelazem.util.tests.coverage.json)  
