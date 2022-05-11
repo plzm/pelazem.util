@@ -55,3 +55,6 @@ Using: https://github.com/marketplace/codefactor
 **Publish Nuget**  
 Using: https://github.com/marketplace/actions/publish-nuget-alirezanet
 Repo: https://github.com/alirezanet/publish-nuget/
+
+> NOTE: for Publish Nuget to also set a repo tag, you must update repo Settings-Actions-General-Workflow permissions to permit github runner bot to git push (tag) to repo.
+
