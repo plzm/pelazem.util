@@ -21,9 +21,9 @@
 
 	<PropertyGroup>
 		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
-		<Version>6.0.1.0</Version>
-		<AssemblyVersion>6.0.1.0</AssemblyVersion>
-		<FileVersion>6.0.1.0</FileVersion>
+		<Version>6.0.2.0</Version>
+		<AssemblyVersion>6.0.2.0</AssemblyVersion>
+		<FileVersion>6.0.2.0</FileVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
