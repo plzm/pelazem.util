@@ -1,7 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)  
 ![Validate GHA Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)  
 ![Build and Test](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml/badge.svg)  
-![Tag](https://github.com/plzm/pelazem.util/actions/workflows/tag.yml/badge.svg)  
+![Publish](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml/badge.svg)  
 [![CodeFactor](https://www.codefactor.io/repository/github/plzm/pelazem.util/badge)](https://www.codefactor.io/repository/github/plzm/pelazem.util)  
 ![Code Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/plzm/3ab4e24d2617826260a3536b2e456d12/raw/pelazem.util.tests.coverage.json)  
 [![Codecov.io](https://codecov.io/gh/plzm/pelazem.util/branch/main/graph/badge.svg?token=7M2A9GV73P)](https://codecov.io/gh/plzm/pelazem.util)  
@@ -52,6 +52,6 @@ Repo: https://github.com/codecov/codecov-action
 **Codefactor**
 Using: https://github.com/marketplace/codefactor
 
-**Add Git Tag**  
-Using: https://github.com/marketplace/actions/add-git-tag
-Repo: https://github.com/cardinalby/git-tag-action
+**Publish Nuget**  
+Using: https://github.com/marketplace/actions/publish-nuget
+Repo: https://github.com/brandedoutcast/publish-nuget
