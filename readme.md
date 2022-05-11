@@ -53,5 +53,5 @@ Repo: https://github.com/codecov/codecov-action
 Using: https://github.com/marketplace/codefactor
 
 **Publish Nuget**  
-Using: https://github.com/marketplace/actions/publish-nuget
-Repo: https://github.com/brandedoutcast/publish-nuget
+Using: https://github.com/marketplace/actions/publish-nuget-alirezanet
+Repo: https://github.com/alirezanet/publish-nuget/
