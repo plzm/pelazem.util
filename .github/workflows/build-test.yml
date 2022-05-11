@@ -6,6 +6,8 @@ on:
     paths:
       - 'src/**'
   pull_request:
+    paths:
+      - 'src/**'
 
 env:
   SRC_PATH: './src/'
