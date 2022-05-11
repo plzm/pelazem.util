@@ -19,5 +19,5 @@ jobs:
         if: success()
         uses: cardinalby/git-tag-action@master
         env:
-          TAG: v6.0.0.0
+          TAG: v6.0.1.0
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
