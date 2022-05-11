@@ -1,0 +1,23 @@
+name: Tag
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    name: Git Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - name: Bump version and push tag
+        if: success()
+        uses: cardinalby/git-tag-action@master
+        env:
+          TAG: v6.0.1.0
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
