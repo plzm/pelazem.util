@@ -52,6 +52,6 @@ Repo: https://github.com/codecov/codecov-action
 **Codefactor**
 Using: https://github.com/marketplace/codefactor
 
-**GitHub Tag Bump**  
-Using: https://github.com/marketplace/actions/github-tag-bump
-Repo: https://github.com/anothrNick/github-tag-action
+**Add Git Tag**  
+Using: https://github.com/marketplace/actions/add-git-tag
+Repo: https://github.com/cardinalby/git-tag-action
