@@ -1,17 +1,13 @@
 name: Tag
 
 on:
-  workflow_dispatch:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - main
 
 jobs:
   tag:
     name: Git Tag
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,7 +21,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           RELEASE_BRANCHES: main
-          INITIAL_VERSION: 6.0.0.0
+          INITIAL_VERSION: 'v6.0.0'
           DEFAULT_BUMP: minor
           WITH_V: true
           VERBOSE: true
