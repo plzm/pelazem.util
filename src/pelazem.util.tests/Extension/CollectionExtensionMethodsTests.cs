@@ -6,7 +6,7 @@ using pelazem.util;
 
 namespace pelazem.util.tests
 {
-	public class CollectionExtensionMethodTests
+	public class CollectionExtensionMethodsTests
 	{
 		[Theory]
 		[InlineData(null)]
