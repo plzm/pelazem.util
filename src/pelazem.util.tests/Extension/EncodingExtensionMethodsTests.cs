@@ -7,7 +7,7 @@ using pelazem.util;
 
 namespace pelazem.util.tests
 {
-	public class EncodingExtensionMethodTests
+	public class EncodingExtensionMethodsTests
 	{
 		private static string _rawString = "D/General/Active-Special_Servicing/2011/WFRBS_2011-C4/Closing_Binder/22._WFB_–_Master_Servicer_-_Indemnification_Agreement.pdf";
 		private static string _encodedStringSafe = "RC9HZW5lcmFsL0FjdGl2ZS1TcGVjaWFsX1NlcnZpY2luZy8yMDExL1dGUkJTXzIwMTEtQzQvQ2xvc2luZ19CaW5kZXIvMjIuX1dGQl_igJNfTWFzdGVyX1NlcnZpY2VyXy1fSW5kZW1uaWZpY2F0aW9uX0FncmVlbWVudC5wZGY";

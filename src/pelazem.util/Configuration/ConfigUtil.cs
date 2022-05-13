@@ -10,7 +10,7 @@ namespace pelazem.util.Configuration
 	{
 		public static Dictionary<string, string> GetConfiguration(bool addJsonSettingsFile = false, string jsonSettingsFileName = "", string jsonSettingsSectionName = "", bool addEnvironmentVariables = false, string environmentVariablePrefix = "")
 		{
-			Dictionary<string, string> config = new Dictionary<string, string>();
+			Dictionary<string, string> config = new();
 
 			var builder = new ConfigurationBuilder()
 			   .SetBasePath(Directory.GetCurrentDirectory());

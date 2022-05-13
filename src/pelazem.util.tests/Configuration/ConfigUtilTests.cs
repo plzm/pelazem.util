@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.IO;
 using System.Linq;
 using Xunit;
 using pelazem.util;
 using pelazem.util.Configuration;
-using System.Dynamic;
 
 namespace pelazem.util.tests
 {
@@ -14,15 +15,18 @@ namespace pelazem.util.tests
 		public void ConfigShouldRead()
 		{
 			// Arrange
-			string fileName = "ConfigUtil.Test.Settings.json";
-			string sectionname = "Settings";
+			string settingsFileFolderName = "Configuration";
+			string settingsFileName = "ConfigUtil.Test.Settings.json";
+			string sectionName = "Settings";
+
+			string settingsFilePath = Path.Combine(Directory.GetCurrentDirectory(), settingsFileFolderName, settingsFileName);
 
 			// Act
 			Dictionary<string, string> config = ConfigUtil.GetConfiguration
 			(
 				addJsonSettingsFile: true,
-				jsonSettingsFileName: fileName,
-				jsonSettingsSectionName: sectionname,
+				jsonSettingsFileName: settingsFilePath,
+				jsonSettingsSectionName: sectionName,
 				addEnvironmentVariables: true
 			);
 
