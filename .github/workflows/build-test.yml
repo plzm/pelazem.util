@@ -32,7 +32,7 @@ jobs:
 
       - name: dotnet build
         if: success()
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore --no-incremental
         working-directory: ${{ env.SRC_PATH }}
 
       - name: dotnet test
@@ -80,6 +80,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install dotnet-coverage
+        if: success()
+        run: dotnet tool install --global dotnet-coverage
+
       - name: Make Sonar directories
         if: success()
         run: |
@@ -116,5 +120,6 @@ jobs:
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"plzm_pelazem.util" /o:"plzm" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet restore ${{ env.SRC_PATH }}
-          dotnet build ${{ env.SRC_PATH }} --no-restore
+          dotnet build ${{ env.SRC_PATH }} --no-restore --no-incremental
+          dotnet-coverage collect 'dotnet test ${{ env.SRC_PATH }}pelazem.util.tests/ --nologo --no-restore --no-build --verbosity normal -r TestResults/ ' -f xml -o 'coverage.xml'
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
