@@ -5,6 +5,11 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/plzm/pelazem.util/badge)](https://www.codefactor.io/repository/github/plzm/pelazem.util)  
 ![Code Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/plzm/3ab4e24d2617826260a3536b2e456d12/raw/pelazem.util.tests.coverage.json)  
 [![Codecov.io](https://codecov.io/gh/plzm/pelazem.util/branch/main/graph/badge.svg?token=7M2A9GV73P)](https://codecov.io/gh/plzm/pelazem.util)  
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=bugs)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
 
 ## Utility Library
 
