@@ -24,7 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: '0'
+          fetch-depth: 0
 
       - name: Restore dependencies
         run: dotnet restore
@@ -69,3 +69,52 @@ jobs:
           flags: unit-tests
           fail_ci_if_error: true
           verbose: true
+
+  sonar:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    needs: build-test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Make Sonar directories
+        if: success()
+        run: |
+          mkdir -p ./.sonar/cache
+          mkdir -p ./.sonar/scanner
+
+      - name: Cache SonarCloud packages
+        if: success()
+        uses: actions/cache@v1
+        with:
+          path: ./.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache SonarCloud scanner
+        if: success()
+        id: cache-sonar-scanner
+        uses: actions/cache@v1
+        with:
+          path: ./.sonar/scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+
+      - name: Install SonarCloud scanner
+        if: success() && steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        run: |
+          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+
+      - name: Build and analyze
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"plzm_pelazem.util" /o:"plzm" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet restore ${{ env.SRC_PATH }}
+          dotnet build ${{ env.SRC_PATH }} --no-restore
+          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
