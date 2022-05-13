@@ -1,16 +1,21 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)  
+
+Workflows  
 [![Validate GHA Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml)  
 [![Build and Test](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml)  
 [![Publish](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml)  
-[![CodeFactor](https://www.codefactor.io/repository/github/plzm/pelazem.util/badge)](https://www.codefactor.io/repository/github/plzm/pelazem.util)  
-[![Codecov.io](https://codecov.io/gh/plzm/pelazem.util/branch/main/graph/badge.svg?token=7M2A9GV73P)](https://codecov.io/gh/plzm/pelazem.util)  
-SonarCloud Badges  
+
+SonarCloud  
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=coverage)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=bugs)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
+
+Other  
+[![CodeFactor](https://www.codefactor.io/repository/github/plzm/pelazem.util/badge)](https://www.codefactor.io/repository/github/plzm/pelazem.util)  
+[![Codecov.io](https://codecov.io/gh/plzm/pelazem.util/branch/main/graph/badge.svg?token=7M2A9GV73P)](https://codecov.io/gh/plzm/pelazem.util)  
 
 ## Utility Library
 
