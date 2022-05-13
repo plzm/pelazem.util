@@ -8,8 +8,6 @@ on:
       - 'src/**'
   pull_request:
     types: [opened, synchronize, reopened]
-    branches:
-      - main
     paths:
       - './github/workflows/**'
       - 'src/**'
