@@ -3,8 +3,16 @@ name: Build and Test
 on:
   workflow_dispatch:
   push:
+    paths:
+      - './github/workflows/**'
+      - 'src/**'
   pull_request:
     types: [opened, synchronize, reopened]
+    branches:
+      - main
+    paths:
+      - './github/workflows/**'
+      - 'src/**'
 
 env:
   SRC_PATH: './src/'
