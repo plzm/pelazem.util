@@ -27,7 +27,7 @@ namespace pelazem.util.tests
 				addJsonSettingsFile: true,
 				jsonSettingsFileName: settingsFilePath,
 				jsonSettingsSectionName: sectionName,
-				addEnvironmentVariables: false
+				addEnvironmentVariables: true
 			);
 
 			// Assert

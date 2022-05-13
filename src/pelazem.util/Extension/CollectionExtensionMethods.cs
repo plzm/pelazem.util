@@ -1,21 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace pelazem.util
 {
 	public static class CollectionExtensionMethods
 	{
-		public static void AddItems<T>(this ICollection<T> icollection, IEnumerable<T> items)
+		public static void AddItems<T>(this ICollection<T> iCollection, IEnumerable<T> items)
 		{
-			if (icollection == null || items == null)
+			if (iCollection == null || items == null)
 				return;
 
 			foreach (T item in items)
-				icollection.Add(item);
+				iCollection.Add(item);
+		}
+
+		private static string GetString<T>(T item, bool includeEmptyItems)
+		{
+			if (item == null)
+				return string.Empty;
+
+			string result = (includeEmptyItems ? item.ToString() : item.ToString().Trim());
+
+			return result;
+		}
+
+		private static string GetResult(string delimitedList, string delimiter)
+		{
+			// This chops a leading delimiter off
+			return delimitedList.Substring(Math.Min(delimitedList.Length, delimiter.Length));
+		}
+
+		private static string GetDelimitedListWorker<T>(IEnumerable<T> items, string delimiter, bool includeEmptyItems, Func<T, bool, string> howToGetItemValue)
+		{
+			string result = items
+				.Aggregate
+				(
+					string.Empty,
+					(output, next) =>
+						output +
+						(
+							(includeEmptyItems || !string.IsNullOrWhiteSpace(GetString(next, includeEmptyItems))) ?
+							delimiter + howToGetItemValue(next, includeEmptyItems) :
+							string.Empty
+						)
+				);
+
+			return GetResult(result, delimiter);
+		}
+
+		private static string GetDelimitedListWorker<TKey, TValue>(IDictionary<TKey, TValue> items, string delimiter, bool includeEmptyItems, Func<KeyValuePair<TKey, TValue>, bool, string> howToGetItemValue)
+		{
+			string result = items
+				.Aggregate
+				(
+					string.Empty,
+					(output, next) =>
+						output +
+						(
+							(includeEmptyItems || !string.IsNullOrWhiteSpace(GetString(next.Value, includeEmptyItems))) ?
+							delimiter + howToGetItemValue(next, includeEmptyItems) :
+							string.Empty
+						)
+				);
+
+			return GetResult(result, delimiter);
 		}
 
 		public static string GetDelimitedList<T>(this IEnumerable<T> items, string delimiter, string valueIfEntireListIsEmpty, bool includeEmptyItems = false)
@@ -23,35 +73,9 @@ namespace pelazem.util
 			if (items == null || items.Count() == 0)
 				return valueIfEntireListIsEmpty;
 
-			string result = items
-				.Aggregate
-				(
-					string.Empty,
-					(output, next) =>
-						output +
-						((includeEmptyItems || (next != null && next.ToString().Length > 0)) ? delimiter : string.Empty) +
-						(next != null ? next.ToString() : string.Empty)
-				);
+			Func<T, bool, string> func = (item, includeEmptyItems) => GetString(item, includeEmptyItems);
 
-			return result.Substring(Math.Min(result.Length, delimiter.Length));
-		}
-
-		public static string GetDelimitedList<TKey, TValue>(this IDictionary<TKey, TValue> dict, string delimiter, string valueIfEntireListIsEmpty, bool includeEmptyItems = false)
-		{
-			if (dict == null || dict.Count == 0)
-				return valueIfEntireListIsEmpty;
-
-			string result = dict
-				.Aggregate
-				(
-					string.Empty,
-					(output, next) =>
-						output +
-						((includeEmptyItems || (next.Value != null && next.Value.ToString().Length > 0)) ? delimiter : string.Empty) +
-						next.Key.ToString() + "=" + (next.Value != null ? next.Value.ToString() : string.Empty)
-				);
-
-			return result.Substring(Math.Min(result.Length, delimiter.Length));
+			return GetDelimitedListWorker(items, delimiter, includeEmptyItems, func);
 		}
 
 		public static string GetDelimitedList<T>(this IEnumerable<T> items, string delimiter, string valueIfEntireListIsEmpty, PropertyInfo propToUseValue, bool includeEmptyItems = false)
@@ -59,35 +83,29 @@ namespace pelazem.util
 			if (items == null || items.Count() == 0)
 				return valueIfEntireListIsEmpty;
 
-			string result = items
-				.Aggregate
-				(
-					string.Empty,
-					(output, next) =>
-						output +
-						((includeEmptyItems || (next != null && next.ToString().Length > 0)) ? delimiter : string.Empty) +
-						(propToUseValue.GetValueEx(next) != null ? propToUseValue.GetValueEx(next).ToString() : string.Empty)
-				);
+			Func<T, bool, string> func = (item, includeEmptyItems) => GetString(propToUseValue.GetValueEx(item), includeEmptyItems);
 
-			return result.Substring(Math.Min(result.Length, delimiter.Length));
+			return GetDelimitedListWorker(items, delimiter, includeEmptyItems, func);
 		}
 
-		public static string GetDelimitedList<TKey, TValue>(this IDictionary<TKey, TValue> dict, string delimiter, string valueIfEntireListIsEmpty, PropertyInfo propToUseValue, bool includeEmptyItems = false)
+		public static string GetDelimitedList<TKey, TValue>(this IDictionary<TKey, TValue> items, string delimiter, string valueIfEntireListIsEmpty, bool includeEmptyItems = false)
 		{
-			if (dict == null || dict.Count == 0)
+			if (items == null || items.Count == 0)
 				return valueIfEntireListIsEmpty;
 
-			string result = dict
-				.Aggregate
-				(
-					string.Empty,
-					(output, next) =>
-					output +
-					((includeEmptyItems || (next.Value != null && next.Value.ToString().Length > 0)) ? delimiter : string.Empty) +
-					next.Key.ToString() + "=" + (propToUseValue.GetValueEx(next.Value) != null ? propToUseValue.GetValueEx(next.Value).ToString() : string.Empty)
-				);
+			Func<KeyValuePair<TKey, TValue>, bool, string> func = (item, includeEmptyItems) => item.Key.ToString() + "=" + GetString(item.Value, includeEmptyItems);
 
-			return result.Substring(Math.Min(result.Length, delimiter.Length));
+			return GetDelimitedListWorker(items, delimiter, includeEmptyItems, func);
+		}
+
+		public static string GetDelimitedList<TKey, TValue>(this IDictionary<TKey, TValue> items, string delimiter, string valueIfEntireListIsEmpty, PropertyInfo propToUseValue, bool includeEmptyItems = false)
+		{
+			if (items == null || items.Count == 0)
+				return valueIfEntireListIsEmpty;
+
+			Func<KeyValuePair<TKey, TValue>, bool, string> func = (item, includeEmptyItems) => item.Key.ToString() + "=" + GetString(propToUseValue.GetValueEx(item.Value), includeEmptyItems);
+
+			return GetDelimitedListWorker(items, delimiter, includeEmptyItems, func);
 		}
 	}
 }
