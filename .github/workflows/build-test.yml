@@ -80,6 +80,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Make Sonar directories
+        if: success()
+        run: |
+          mkdir -p ./.sonar/cache
+          mkdir -p ./.sonar/scanner
+
       - name: Cache SonarCloud packages
         if: success()
         uses: actions/cache@v1
@@ -100,7 +106,6 @@ jobs:
       - name: Install SonarCloud scanner
         if: success() && steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
-          mkdir ./.sonar/scanner
           dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
       - name: Build and analyze
