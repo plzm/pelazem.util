@@ -38,6 +38,10 @@ pelazem.util: a C# utility library with build targets for .NET 6.0 and .NET Stan
 
 ##### Apps and Marketplace Actions
 
+**SonarCloud**
+Using: https://github.com/marketplace/actions/sonarcloud-scan
+Project: https://sonarcloud.io/project/overview?id=plzm_pelazem.util
+
 **Whitesource**  
 Using: https://www.whitesourcesoftware.com/repo-integration/
 
