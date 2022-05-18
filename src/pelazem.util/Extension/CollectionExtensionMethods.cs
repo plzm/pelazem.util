@@ -16,7 +16,7 @@ namespace pelazem.util
 				iCollection.Add(item);
 		}
 
-		private static string GetString<T>(T item, bool includeEmptyItems)
+		internal static string GetString<T>(T item, bool includeEmptyItems)
 		{
 			if (item == null)
 				return string.Empty;
@@ -26,13 +26,20 @@ namespace pelazem.util
 			return result;
 		}
 
-		private static string GetResult(string delimitedList, string delimiter)
+		internal static string GetResult(string delimitedList, string delimiter)
 		{
+			// Use string.IsNullOrEmpty for delimiter instead of string.IsNullOrWhiteSpace since someone may use whitespace as delimiter
+			if (string.IsNullOrWhiteSpace(delimitedList) || string.IsNullOrEmpty(delimiter))
+				return delimitedList;
+
+			if (!delimitedList.StartsWith(delimiter))
+				return delimitedList;
+
 			// This chops a leading delimiter off
 			return delimitedList.Substring(Math.Min(delimitedList.Length, delimiter.Length));
 		}
 
-		private static string GetDelimitedListWorker<T>(IEnumerable<T> items, string delimiter, bool includeEmptyItems, Func<T, bool, string> howToGetItemValue)
+		internal static string GetDelimitedListWorker<T>(IEnumerable<T> items, string delimiter, bool includeEmptyItems, Func<T, bool, string> howToGetItemValue)
 		{
 			string result = items
 				.Aggregate
@@ -50,7 +57,7 @@ namespace pelazem.util
 			return GetResult(result, delimiter);
 		}
 
-		private static string GetDelimitedListWorker<TKey, TValue>(IDictionary<TKey, TValue> items, string delimiter, bool includeEmptyItems, Func<KeyValuePair<TKey, TValue>, bool, string> howToGetItemValue)
+		internal static string GetDelimitedListWorker<TKey, TValue>(IDictionary<TKey, TValue> items, string delimiter, bool includeEmptyItems, Func<KeyValuePair<TKey, TValue>, bool, string> howToGetItemValue)
 		{
 			string result = items
 				.Aggregate
