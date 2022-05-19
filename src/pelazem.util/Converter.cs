@@ -72,7 +72,7 @@ namespace pelazem.util
 				if (secondsOnly > 60)
 				{
 					int actualSeconds = secondsOnly % 60;
-					double rawActualMinutes = secondsOnly / 60;
+					double rawActualMinutes = GetDouble(secondsOnly) / 60;
 					int actualMinutes = GetInt32(rawActualMinutes);
 
 					value = actualMinutes.ToString() + ":" + (actualSeconds < 10 ? "0" : string.Empty) + actualSeconds.ToString();

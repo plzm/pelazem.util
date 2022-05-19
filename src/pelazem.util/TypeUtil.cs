@@ -45,72 +45,34 @@ namespace pelazem.util
 		public static Type TypeUInt64Nullable = typeof(Nullable<UInt64>);
 		public static Type TypeSingleNullable = typeof(Nullable<Single>);
 
-		private static readonly List<Type> _primitiveTypes = new List<Type>();
-		private static readonly List<Type> _primitiveNullableTypes = new List<Type>();
+		private static Dictionary<Type, string> _typeAliases = null;
+		private static List<Type> _primitiveTypes = null;
+		private static List<Type> _primitiveNullableTypes = null;
 
-		private static readonly SortedList<string, List<PropertyInfo>> _typeProps = new SortedList<string, List<PropertyInfo>>();
-		private static readonly SortedList<string, List<PropertyInfo>> _primitiveProps = new SortedList<string, List<PropertyInfo>>();
-		private static readonly SortedList<string, List<PropertyInfo>> _complexProps = new SortedList<string, List<PropertyInfo>>();
+		private static SortedList<string, List<PropertyInfo>> _typeProps = null;
+		private static SortedList<string, List<PropertyInfo>> _primitiveProps = new SortedList<string, List<PropertyInfo>>();
+		private static SortedList<string, List<PropertyInfo>> _complexProps = new SortedList<string, List<PropertyInfo>>();
 
 		/// <summary>
 		/// .NET types and C# alias names
 		/// </summary>
-		public static readonly Dictionary<Type, string> TypeAliases = new Dictionary<Type, string>
+		public static Dictionary<Type, string> TypeAliases
 		{
-			{ TypeBool, "bool" },
-			{ TypeByte, "byte" },
-			{ TypeSByte, "sbyte" },
-			{ TypeChar, "char" },
-			{ TypeDecimal, "decimal" },
-			{ TypeDouble, "double" },
-			{ TypeInt16, "short" },
-			{ TypeUInt16, "ushort" },
-			{ TypeInt32, "int" },
-			{ TypeUInt32, "uint" },
-			{ TypeInt64, "long" },
-			{ TypeUInt64, "ulong" },
-			{ TypeObject, "object" },
-			{ TypeSingle, "float" },
-			{ TypeString, "string" },
-			{ TypeVoid, "void" },
-			{ TypeBoolNullable, "bool?" },
-			{ TypeByteNullable, "byte?" },
-			{ TypeSByteNullable, "sbyte?" },
-			{ TypeCharNullable, "char?" },
-			{ TypeDecimalNullable, "decimal?" },
-			{ TypeDoubleNullable, "double?" },
-			{ TypeInt16Nullable, "short?" },
-			{ TypeUInt16Nullable, "ushort?" },
-			{ TypeInt32Nullable, "int?" },
-			{ TypeUInt32Nullable, "uint?" },
-			{ TypeInt64Nullable, "long?" },
-			{ TypeUInt64Nullable, "ulong?" },
-			{ TypeSingleNullable, "float?" }
-		};
+			get
+			{
+				if (_typeAliases == null)
+					InitializeTypeAliases();
+
+				return _typeAliases;
+			}
+		}
 
 		public static List<Type> PrimitiveTypes
 		{
 			get
 			{
-				if (_primitiveTypes.Count == 0)
-				{
-					_primitiveTypes.Add(TypeBool);
-					_primitiveTypes.Add(TypeByte);
-					_primitiveTypes.Add(TypeSByte);
-					_primitiveTypes.Add(TypeChar);
-					_primitiveTypes.Add(TypeDateTime);
-					_primitiveTypes.Add(TypeDecimal);
-					_primitiveTypes.Add(TypeDouble);
-					_primitiveTypes.Add(TypeGuid);
-					_primitiveTypes.Add(TypeInt16);
-					_primitiveTypes.Add(TypeInt32);
-					_primitiveTypes.Add(TypeInt64);
-					_primitiveTypes.Add(TypeUInt16);
-					_primitiveTypes.Add(TypeUInt32);
-					_primitiveTypes.Add(TypeUInt64);
-					_primitiveTypes.Add(TypeSingle);
-					_primitiveTypes.Add(TypeString);
-				}
+				if (_primitiveTypes == null)
+					InitializePrimitiveTypes();
 
 				return _primitiveTypes;
 			}
@@ -120,27 +82,127 @@ namespace pelazem.util
 		{
 			get
 			{
-				if (_primitiveNullableTypes.Count == 0)
-				{
-					_primitiveNullableTypes.Add(TypeBoolNullable);
-					_primitiveNullableTypes.Add(TypeByteNullable);
-					_primitiveNullableTypes.Add(TypeSByteNullable);
-					_primitiveNullableTypes.Add(TypeCharNullable);
-					_primitiveNullableTypes.Add(TypeDateTimeNullable);
-					_primitiveNullableTypes.Add(TypeDecimalNullable);
-					_primitiveNullableTypes.Add(TypeDoubleNullable);
-					_primitiveNullableTypes.Add(TypeGuidNullable);
-					_primitiveNullableTypes.Add(TypeInt16Nullable);
-					_primitiveNullableTypes.Add(TypeUInt16Nullable);
-					_primitiveNullableTypes.Add(TypeInt32Nullable);
-					_primitiveNullableTypes.Add(TypeUInt32Nullable);
-					_primitiveNullableTypes.Add(TypeInt64Nullable);
-					_primitiveNullableTypes.Add(TypeUInt64Nullable);
-					_primitiveNullableTypes.Add(TypeSingleNullable);
-				}
+				if (_primitiveNullableTypes == null)
+					InitializePrimitiveNullableTypes();
 
 				return _primitiveNullableTypes;
 			}
+		}
+
+		public static SortedList<string, List<PropertyInfo>> TypeProps
+		{
+			get
+			{
+				if (_typeProps == null)
+					_typeProps = new SortedList<string, List<PropertyInfo>>();
+
+				return _typeProps;
+			}
+		}
+
+		public static SortedList<string, List<PropertyInfo>> PrimitiveProps
+		{
+			get
+			{
+				if (_primitiveProps == null)
+					_primitiveProps = new SortedList<string, List<PropertyInfo>>();
+
+				return _primitiveProps;
+			}
+		}
+
+		public static SortedList<string, List<PropertyInfo>> ComplexProps
+		{
+			get
+			{
+				if (_complexProps == null)
+					_complexProps = new SortedList<string, List<PropertyInfo>>();
+
+				return _complexProps;
+			}
+		}
+
+		#endregion
+
+		#region Property Initializers
+
+		private static void InitializeTypeAliases()
+		{
+			_typeAliases = new Dictionary<Type, string>
+			{
+				{ TypeBool, "bool" },
+				{ TypeByte, "byte" },
+				{ TypeSByte, "sbyte" },
+				{ TypeChar, "char" },
+				{ TypeDecimal, "decimal" },
+				{ TypeDouble, "double" },
+				{ TypeInt16, "short" },
+				{ TypeUInt16, "ushort" },
+				{ TypeInt32, "int" },
+				{ TypeUInt32, "uint" },
+				{ TypeInt64, "long" },
+				{ TypeUInt64, "ulong" },
+				{ TypeObject, "object" },
+				{ TypeSingle, "float" },
+				{ TypeString, "string" },
+				{ TypeVoid, "void" },
+				{ TypeBoolNullable, "bool?" },
+				{ TypeByteNullable, "byte?" },
+				{ TypeSByteNullable, "sbyte?" },
+				{ TypeCharNullable, "char?" },
+				{ TypeDecimalNullable, "decimal?" },
+				{ TypeDoubleNullable, "double?" },
+				{ TypeInt16Nullable, "short?" },
+				{ TypeUInt16Nullable, "ushort?" },
+				{ TypeInt32Nullable, "int?" },
+				{ TypeUInt32Nullable, "uint?" },
+				{ TypeInt64Nullable, "long?" },
+				{ TypeUInt64Nullable, "ulong?" },
+				{ TypeSingleNullable, "float?" }
+			};
+		}
+
+		private static void InitializePrimitiveTypes()
+		{
+			_primitiveTypes = new List<Type>();
+
+			_primitiveTypes.Add(TypeBool);
+			_primitiveTypes.Add(TypeByte);
+			_primitiveTypes.Add(TypeSByte);
+			_primitiveTypes.Add(TypeChar);
+			_primitiveTypes.Add(TypeDateTime);
+			_primitiveTypes.Add(TypeDecimal);
+			_primitiveTypes.Add(TypeDouble);
+			_primitiveTypes.Add(TypeGuid);
+			_primitiveTypes.Add(TypeInt16);
+			_primitiveTypes.Add(TypeInt32);
+			_primitiveTypes.Add(TypeInt64);
+			_primitiveTypes.Add(TypeUInt16);
+			_primitiveTypes.Add(TypeUInt32);
+			_primitiveTypes.Add(TypeUInt64);
+			_primitiveTypes.Add(TypeSingle);
+			_primitiveTypes.Add(TypeString);
+		}
+
+		private static void InitializePrimitiveNullableTypes()
+		{
+			_primitiveNullableTypes = new List<Type>();
+
+			_primitiveNullableTypes.Add(TypeBoolNullable);
+			_primitiveNullableTypes.Add(TypeByteNullable);
+			_primitiveNullableTypes.Add(TypeSByteNullable);
+			_primitiveNullableTypes.Add(TypeCharNullable);
+			_primitiveNullableTypes.Add(TypeDateTimeNullable);
+			_primitiveNullableTypes.Add(TypeDecimalNullable);
+			_primitiveNullableTypes.Add(TypeDoubleNullable);
+			_primitiveNullableTypes.Add(TypeGuidNullable);
+			_primitiveNullableTypes.Add(TypeInt16Nullable);
+			_primitiveNullableTypes.Add(TypeUInt16Nullable);
+			_primitiveNullableTypes.Add(TypeInt32Nullable);
+			_primitiveNullableTypes.Add(TypeUInt32Nullable);
+			_primitiveNullableTypes.Add(TypeInt64Nullable);
+			_primitiveNullableTypes.Add(TypeUInt64Nullable);
+			_primitiveNullableTypes.Add(TypeSingleNullable);
 		}
 
 		#endregion
@@ -219,26 +281,26 @@ namespace pelazem.util
 
 		public static List<PropertyInfo> GetProps(Type type)
 		{
-			if (!_typeProps.Keys.Contains(type.FullName))
-				_typeProps.Add(type.FullName, type.GetRuntimeProperties().ToList<PropertyInfo>());
+			if (!TypeProps.Keys.Contains(type.FullName))
+				TypeProps.Add(type.FullName, type.GetRuntimeProperties().ToList<PropertyInfo>());
 
-			return _typeProps[type.FullName];
+			return TypeProps[type.FullName];
 		}
 
 		public static List<PropertyInfo> GetPrimitiveProps(Type type)
 		{
-			if (!_primitiveProps.Keys.Contains(type.FullName))
-				_primitiveProps.Add(type.FullName, GetProps(type).Where(p => PrimitiveTypes.Contains(p.PropertyType) || PrimitiveNullableTypes.Contains(p.PropertyType)).ToList());
+			if (!PrimitiveProps.Keys.Contains(type.FullName))
+				PrimitiveProps.Add(type.FullName, GetProps(type).Where(p => PrimitiveTypes.Contains(p.PropertyType) || PrimitiveNullableTypes.Contains(p.PropertyType)).ToList());
 
-			return _primitiveProps[type.FullName];
+			return PrimitiveProps[type.FullName];
 		}
 
 		public static List<PropertyInfo> GetComplexProps(Type type)
 		{
-			if (!_complexProps.Keys.Contains(type.FullName))
-				_complexProps.Add(type.FullName, GetProps(type).Where(p => !PrimitiveTypes.Contains(p.PropertyType) && !PrimitiveNullableTypes.Contains(p.PropertyType)).ToList());
+			if (!ComplexProps.Keys.Contains(type.FullName))
+				ComplexProps.Add(type.FullName, GetProps(type).Where(p => !PrimitiveTypes.Contains(p.PropertyType) && !PrimitiveNullableTypes.Contains(p.PropertyType)).ToList());
 
-			return _complexProps[type.FullName];
+			return ComplexProps[type.FullName];
 		}
 
 		#endregion
@@ -315,7 +377,7 @@ namespace pelazem.util
 
 			Type propType = null;
 			TypeInfo typeInfo = prop.PropertyType.GetTypeInfo();
-			
+
 			if ((typeInfo.IsPrimitive || prop.PropertyType.Equals(typeof(System.String)) || prop.PropertyType.Equals(typeof(System.Guid))))
 				propType = prop.PropertyType;
 			else if (typeInfo.IsGenericType && prop.PropertyType.Name.StartsWith("Nullable"))

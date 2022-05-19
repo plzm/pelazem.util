@@ -14,7 +14,7 @@ namespace pelazem.util
 
 		public const string FORMAT_DATE = "d";
 		public const string FORMAT_DATETIME_US = "G";
-		public const string FORMAT_DATETIME_ISO8601 = "O"; // "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
+		public const string FORMAT_DATETIME_ISO8601 = "O"; // This corresponds to the explicit format string yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK
 		public const string FORMAT_TIME = "HH:mm";
 	}
 }
