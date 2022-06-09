@@ -8,7 +8,7 @@ namespace pelazem.util
 	{
 		private static readonly char paddingChar = '=';
 		static readonly char[] paddingChars = { paddingChar };
-		private static readonly string paddingString = new string(paddingChar, 1);
+		private static readonly string paddingString = new(paddingChar, 1);
 
 		/// <summary>
 		/// 
