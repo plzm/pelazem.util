@@ -60,9 +60,4 @@ namespace pelazem.util.tests
 			Assert.Null(result);
 		}
 	}
-
-	public class ReflectionTestClass
-	{
-		public string Name { get; set; }
-	}
 }
