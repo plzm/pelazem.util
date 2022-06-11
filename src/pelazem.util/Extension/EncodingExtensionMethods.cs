@@ -7,7 +7,6 @@ namespace pelazem.util
 	public static class EncodingExtensionMethods
 	{
 		private static readonly char paddingChar = '=';
-		static readonly char[] paddingChars = { paddingChar };
 		private static readonly string paddingString = new(paddingChar, 1);
 
 		/// <summary>
