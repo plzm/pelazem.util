@@ -29,8 +29,7 @@ namespace pelazem.util
 			{
 				result = result
 					.Replace('+', '-')
-					.Replace('/', '_')
-				;
+					.Replace('/', '_');
 			}
 
 			return result;
