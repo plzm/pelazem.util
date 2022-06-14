@@ -27,6 +27,20 @@ namespace pelazem.util.tests
 			Assert.True(result.Length == 0);
 		}
 
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		public void EmptyStringShouldReturnEmptyDecodedString(string value)
+		{
+			// Arrange
+
+			// Act
+			string result = Encoding.UTF8.DecodeBase64(value);
+
+			// Assert
+			Assert.True(result.Length == 0);
+		}
+
 		[Fact]
 		public void RawStringShouldEncodeCorrectlyWithMakeFilePathSafe()
 		{
@@ -86,5 +100,39 @@ namespace pelazem.util.tests
 			// Assert
 			Assert.Equal(_rawString, raw);
 		}
+
+		[Theory]
+		[InlineData("a")]
+		[InlineData("ab")]
+		[InlineData("abc")]
+		[InlineData("ab=")]
+		[InlineData("abcd=")]
+		public void TextShouldNeedToBePadded(string value)
+		{
+			// Arrange
+
+			// Act
+			bool result = EncodingExtensionMethods.EncodedTextNeedsToBePadded(value);
+
+			// Assert
+			Assert.True(result);
+		}
+
+		[Theory]
+		[InlineData("abc=")]
+		[InlineData("ab==")]
+		[InlineData("abcd")]
+		[InlineData("abcde===")]
+		public void TextShouldNotNeedToBePadded(string value)
+		{
+			// Arrange
+
+			// Act
+			bool result = EncodingExtensionMethods.EncodedTextNeedsToBePadded(value);
+
+			// Assert
+			Assert.False(result);
+		}
+
 	}
 }

@@ -25,23 +25,56 @@ namespace pelazem.util.Configuration
 
 			IConfigurationRoot configuration = builder.Build();
 
-			if (useJsonSettingsFile)
-				configuration.GetSection(jsonSettingsSectionName).Bind(config);
+			//if (useJsonSettingsFile)
+			//	configuration.GetSection(jsonSettingsSectionName).Bind(config);
 
-			if (addEnvironmentVariables)
-			{
-				try
-				{
-					// TODO
-					// This can throw System.InvalidOperationException: 'Cannot create instance of type 'System.String' because it is missing a public parameterless constructor.'
-					// However, env vars do get picked up. Tracking down if this is a transient/system-specific issue.
-					configuration.Bind(config);
-				}
-				catch
-				{ }
-			}
+			configuration.Bind(config);
 
 			return config;
+		}
+
+		public static IConfigurationBuilder GetConfigurationBuilder()
+		{
+			var builder = new ConfigurationBuilder()
+				.SetBasePath(Directory.GetCurrentDirectory());
+
+			return builder;
+		}
+
+		public static void AddJsonSettingsFile(IConfigurationBuilder builder, string jsonSettingsFilePath, bool optional = true, bool reloadOnFileChanged = true)
+		{
+			if (builder == null || string.IsNullOrWhiteSpace(jsonSettingsFilePath) || !File.Exists(jsonSettingsFilePath))
+				return;
+
+			builder.AddJsonFile(jsonSettingsFilePath, optional: optional, reloadOnChange: reloadOnFileChanged);
+		}
+
+		public static void AddEnvironmentVariables(IConfigurationBuilder builder, string environmentVariablePrefix = "")
+		{
+			if (builder == null)
+				return;
+
+			builder.AddEnvironmentVariables(environmentVariablePrefix);
+		}
+
+		public static IConfigurationRoot BuildAndGetConfiguration(IConfigurationBuilder builder)
+		{
+			if (builder == null)
+				return null;
+
+			return builder.Build();
+		}
+
+		public static Dictionary<string, object> GetConfiguration(IConfigurationBuilder builder)
+		{
+			Dictionary<string, object> result = new();
+
+			if (builder != null)
+			{
+
+			}
+
+			return result;
 		}
 	}
 }

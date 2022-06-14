@@ -390,36 +390,39 @@ namespace pelazem.util
 				propType = typeInfo.GetGenericArguments().FirstOrDefault();
 
 			if (propType != null)
-			{
-				if (propType.Equals(TypeString))
-					prop.SetValueEx(entity, valueToSet.ToString());
-				else if (propType.Equals(TypeBool))
-					prop.SetValueEx(entity, Converter.GetBool(valueToSet));
-				else if (propType.Equals(TypeDateTime))
-					prop.SetValueEx(entity, Converter.GetDateTime(valueToSet));
-				else if (propType.Equals(TypeDecimal))
-					prop.SetValueEx(entity, Converter.GetDecimal(valueToSet));
-				else if (propType.Equals(TypeDouble))
-					prop.SetValueEx(entity, Converter.GetDouble(valueToSet));
-				else if (propType.Equals(TypeGuid))
-					prop.SetValueEx(entity, Converter.GetGuid(valueToSet));
-				else if (propType.Equals(TypeInt16))
-					prop.SetValueEx(entity, Converter.GetInt16(valueToSet));
-				else if (propType.Equals(TypeUInt16))
-					prop.SetValueEx(entity, Converter.GetUInt16(valueToSet));
-				else if (propType.Equals(TypeInt32))
-					prop.SetValueEx(entity, Converter.GetInt32(valueToSet));
-				else if (propType.Equals(TypeUInt32))
-					prop.SetValueEx(entity, Converter.GetUInt32(valueToSet));
-				else if (propType.Equals(TypeInt64))
-					prop.SetValueEx(entity, Converter.GetInt64(valueToSet));
-				else if (propType.Equals(TypeUInt64))
-					prop.SetValueEx(entity, Converter.GetUInt64(valueToSet));
-				else if (propType.Equals(TypeSingle))
-					prop.SetValueEx(entity, Converter.GetSingle(valueToSet));
-				else
-					prop.SetValueEx(entity, valueToSet);
-			}
+				SetValueWorker(entity, propType, prop, valueToSet);
+		}
+
+		private static void SetValueWorker(object entity, Type propType, PropertyInfo prop, object valueToSet)
+		{
+			if (propType.Equals(TypeString))
+				prop.SetValueEx(entity, valueToSet.ToString());
+			else if (propType.Equals(TypeBool))
+				prop.SetValueEx(entity, Converter.GetBool(valueToSet));
+			else if (propType.Equals(TypeDateTime))
+				prop.SetValueEx(entity, Converter.GetDateTime(valueToSet));
+			else if (propType.Equals(TypeDecimal))
+				prop.SetValueEx(entity, Converter.GetDecimal(valueToSet));
+			else if (propType.Equals(TypeDouble))
+				prop.SetValueEx(entity, Converter.GetDouble(valueToSet));
+			else if (propType.Equals(TypeGuid))
+				prop.SetValueEx(entity, Converter.GetGuid(valueToSet));
+			else if (propType.Equals(TypeInt16))
+				prop.SetValueEx(entity, Converter.GetInt16(valueToSet));
+			else if (propType.Equals(TypeUInt16))
+				prop.SetValueEx(entity, Converter.GetUInt16(valueToSet));
+			else if (propType.Equals(TypeInt32))
+				prop.SetValueEx(entity, Converter.GetInt32(valueToSet));
+			else if (propType.Equals(TypeUInt32))
+				prop.SetValueEx(entity, Converter.GetUInt32(valueToSet));
+			else if (propType.Equals(TypeInt64))
+				prop.SetValueEx(entity, Converter.GetInt64(valueToSet));
+			else if (propType.Equals(TypeUInt64))
+				prop.SetValueEx(entity, Converter.GetUInt64(valueToSet));
+			else if (propType.Equals(TypeSingle))
+				prop.SetValueEx(entity, Converter.GetSingle(valueToSet));
+			else
+				prop.SetValueEx(entity, valueToSet);
 		}
 
 		public static PropertyInfo GetProperty<TType>(Expression<Func<TType, object>> propertySelector)

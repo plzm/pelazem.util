@@ -5,27 +5,11 @@ namespace pelazem.util
 {
 	public abstract class Base : IDisposable, INotifyPropertyChanged
 	{
-		#region Variables
-
-		private bool _hasChanged = false;
-
-		private bool _fireEvents = true;
-
-		#endregion
-
 		#region Properties
 
-		public bool HasChanged
-		{
-			get { return _hasChanged; }
-			set { _hasChanged = value; }
-		}
+		public bool HasChanged { get; set; } = false;
 
-		public virtual bool FireEvents
-		{
-			get { return _fireEvents; }
-			set { _fireEvents = value; }
-		}
+		public virtual bool FireEvents { get; set; } = true;
 
 		#endregion
 
@@ -60,7 +44,7 @@ namespace pelazem.util
 		{
 			this.HasChanged = true;
 
-			if (_fireEvents)
+			if (this.FireEvents)
 			{
 				if (this.PropertyChanged == null)
 					this.PropertyChanged = delegate { };

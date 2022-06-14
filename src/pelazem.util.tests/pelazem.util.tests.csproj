@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Configuration\ConfigUtil.Test.Settings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Configuration\ConfigUtil.Test.Settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,12 +35,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\pelazem.util\pelazem.util.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Configuration\ConfigUtil.Test.Settings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

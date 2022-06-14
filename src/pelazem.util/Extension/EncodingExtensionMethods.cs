@@ -7,14 +7,13 @@ namespace pelazem.util
 	public static class EncodingExtensionMethods
 	{
 		private static readonly char paddingChar = '=';
-		private static readonly string paddingString = new(paddingChar, 1);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="encoding"></param>
 		/// <param name="text"></param>
-		/// <param name="makeFileUrlPathSafe">If true, cleans the encoded output as follows: 1. replaces + (plus) with - (minus) | 3. Replaces / (slash) with _ (underscore)</param>
+		/// <param name="makeFileUrlPathSafe">If true, cleans the encoded output as follows: 1. replaces + (plus) with - (minus) | 2. Replaces / (slash) with _ (underscore)</param>
 		/// <returns></returns>
 		public static string EncodeBase64(this Encoding encoding, string text, bool makeFileUrlPathSafe = false)
 		{
@@ -51,23 +50,32 @@ namespace pelazem.util
 				return result;
 
 			// Add padding at end if encoded text length not a multiple of 4 and padding is not there already - have to pad so length % 4 = 0; see https://stackoverflow.com/a/36571117/140761
-			if ((encodedText.Length % 4) != 0 && !encodedText.EndsWith(paddingString))
-				encodedText += new string(paddingChar, 4 - (encodedText.Length % 4));
+			if (EncodedTextNeedsToBePadded(encodedText))
+				encodedText = PadEncodedText(encodedText);
 
 			if (!reverseFileUrlPathSafe)
 				bytes = Convert.FromBase64String(encodedText);
 			else
-			{
-				string raw = encodedText
-					.Replace('-', '+')
-					.Replace('_', '/');
-
-				bytes = Convert.FromBase64String(raw);
-			}
+				bytes = Convert.FromBase64String(MakeEncodedTextFilePathSafe(encodedText));
 
 			result = encoding.GetString(bytes);
 
 			return result;
+		}
+
+		internal static string MakeEncodedTextFilePathSafe(string encodedText)
+		{
+			return encodedText.Replace('-', '+').Replace('_', '/');
+		}
+
+		internal static bool EncodedTextNeedsToBePadded(string encodedText)
+		{
+			return !string.IsNullOrWhiteSpace(encodedText) && (encodedText.Length % 4) != 0; // && !encodedText.EndsWith(paddingChar);
+		}
+
+		internal static string PadEncodedText(string encodedText)
+		{
+			return encodedText + new string(paddingChar, 4 - (encodedText.Length % 4));
 		}
 	}
 }
