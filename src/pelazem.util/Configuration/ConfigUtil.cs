@@ -3,45 +3,41 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace pelazem.util.Configuration
 {
 	public static class ConfigUtil
 	{
-		public static Dictionary<string, string> GetConfiguration(bool addJsonSettingsFile = false, string jsonSettingsFileName = "", string jsonSettingsSectionName = "", bool addEnvironmentVariables = false, string environmentVariablePrefix = "")
+		public static T GetConfiguration<T>(bool addJsonSettingsFile = false, string jsonSettingsFilePath = "", bool addEnvironmentVariables = false, string environmentVariablePrefix = "")
+			where T : new()
 		{
-			Dictionary<string, string> config = new();
+			var builder = GetConfigurationBuilder();
 
-			var builder = new ConfigurationBuilder()
-			   .SetBasePath(Directory.GetCurrentDirectory());
-
-			bool useJsonSettingsFile = (addJsonSettingsFile && !string.IsNullOrWhiteSpace(jsonSettingsFileName) && File.Exists(jsonSettingsFileName));
-
-			if (useJsonSettingsFile)
-				builder.AddJsonFile(jsonSettingsFileName, optional: true, reloadOnChange: true);
+			if (addJsonSettingsFile && !string.IsNullOrWhiteSpace(jsonSettingsFilePath) && File.Exists(jsonSettingsFilePath))
+				AddJsonSettingsFile(builder, jsonSettingsFilePath, true, true);
 
 			if (addEnvironmentVariables)
-				builder.AddEnvironmentVariables(environmentVariablePrefix);
+				AddEnvironmentVariables(builder, environmentVariablePrefix);
 
-			IConfigurationRoot configuration = builder.Build();
+			IConfigurationRoot config = GetConfiguration(builder);
 
-			//if (useJsonSettingsFile)
-			//	configuration.GetSection(jsonSettingsSectionName).Bind(config);
+			T result = BindConfiguration<T>(config);
 
-			configuration.Bind(config);
-
-			return config;
+			return result;
 		}
 
-		public static IConfigurationBuilder GetConfigurationBuilder()
+		internal static IConfigurationBuilder GetConfigurationBuilder()
 		{
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory());
 
+			builder.Sources.Clear();
+
 			return builder;
 		}
 
-		public static void AddJsonSettingsFile(IConfigurationBuilder builder, string jsonSettingsFilePath, bool optional = true, bool reloadOnFileChanged = true)
+		internal static void AddJsonSettingsFile(IConfigurationBuilder builder, string jsonSettingsFilePath, bool optional = true, bool reloadOnFileChanged = true)
 		{
 			if (builder == null || string.IsNullOrWhiteSpace(jsonSettingsFilePath) || !File.Exists(jsonSettingsFilePath))
 				return;
@@ -49,7 +45,7 @@ namespace pelazem.util.Configuration
 			builder.AddJsonFile(jsonSettingsFilePath, optional: optional, reloadOnChange: reloadOnFileChanged);
 		}
 
-		public static void AddEnvironmentVariables(IConfigurationBuilder builder, string environmentVariablePrefix = "")
+		internal static void AddEnvironmentVariables(IConfigurationBuilder builder, string environmentVariablePrefix = "")
 		{
 			if (builder == null)
 				return;
@@ -57,7 +53,7 @@ namespace pelazem.util.Configuration
 			builder.AddEnvironmentVariables(environmentVariablePrefix);
 		}
 
-		public static IConfigurationRoot BuildAndGetConfiguration(IConfigurationBuilder builder)
+		internal static IConfigurationRoot GetConfiguration(IConfigurationBuilder builder)
 		{
 			if (builder == null)
 				return null;
@@ -65,14 +61,20 @@ namespace pelazem.util.Configuration
 			return builder.Build();
 		}
 
-		public static Dictionary<string, object> GetConfiguration(IConfigurationBuilder builder)
+		internal static T BindConfiguration<T>(IConfigurationRoot config)
+			where T : new()
 		{
-			Dictionary<string, object> result = new();
+			T result;
 
-			if (builder != null)
+			if (config != null)
 			{
+				result = new();
+
+				config.Bind(result);
 
 			}
+			else
+				result = default;
 
 			return result;
 		}
