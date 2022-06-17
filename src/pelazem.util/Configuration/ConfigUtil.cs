@@ -3,45 +3,80 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace pelazem.util.Configuration
 {
 	public static class ConfigUtil
 	{
-		public static Dictionary<string, string> GetConfiguration(bool addJsonSettingsFile = false, string jsonSettingsFileName = "", string jsonSettingsSectionName = "", bool addEnvironmentVariables = false, string environmentVariablePrefix = "")
+		public static T GetConfiguration<T>(bool addJsonSettingsFile = false, string jsonSettingsFilePath = "", bool addEnvironmentVariables = false, string environmentVariablePrefix = "")
+			where T : new()
 		{
-			Dictionary<string, string> config = new();
+			var builder = GetConfigurationBuilder();
 
+			if (addJsonSettingsFile && !string.IsNullOrWhiteSpace(jsonSettingsFilePath) && File.Exists(jsonSettingsFilePath))
+				AddJsonSettingsFile(builder, jsonSettingsFilePath, true, true);
+
+			if (addEnvironmentVariables)
+				AddEnvironmentVariables(builder, environmentVariablePrefix);
+
+			IConfigurationRoot config = GetConfiguration(builder);
+
+			T result = BindConfiguration<T>(config);
+
+			return result;
+		}
+
+		internal static IConfigurationBuilder GetConfigurationBuilder()
+		{
 			var builder = new ConfigurationBuilder()
-			   .SetBasePath(Directory.GetCurrentDirectory());
+				.SetBasePath(Directory.GetCurrentDirectory());
 
-			bool useJsonSettingsFile = (addJsonSettingsFile && !string.IsNullOrWhiteSpace(jsonSettingsFileName) && File.Exists(jsonSettingsFileName));
+			builder.Sources.Clear();
 
-			if (useJsonSettingsFile)
-				builder.AddJsonFile(jsonSettingsFileName, optional: true, reloadOnChange: true);
+			return builder;
+		}
 
-			if (addEnvironmentVariables)
-				builder.AddEnvironmentVariables(environmentVariablePrefix);
+		internal static void AddJsonSettingsFile(IConfigurationBuilder builder, string jsonSettingsFilePath, bool optional = true, bool reloadOnFileChanged = true)
+		{
+			if (builder == null || string.IsNullOrWhiteSpace(jsonSettingsFilePath) || !File.Exists(jsonSettingsFilePath))
+				return;
 
-			IConfigurationRoot configuration = builder.Build();
+			builder.AddJsonFile(jsonSettingsFilePath, optional: optional, reloadOnChange: reloadOnFileChanged);
+		}
 
-			if (useJsonSettingsFile)
-				configuration.GetSection(jsonSettingsSectionName).Bind(config);
+		internal static void AddEnvironmentVariables(IConfigurationBuilder builder, string environmentVariablePrefix = "")
+		{
+			if (builder == null)
+				return;
 
-			if (addEnvironmentVariables)
+			builder.AddEnvironmentVariables(environmentVariablePrefix);
+		}
+
+		internal static IConfigurationRoot GetConfiguration(IConfigurationBuilder builder)
+		{
+			if (builder == null)
+				return null;
+
+			return builder.Build();
+		}
+
+		internal static T BindConfiguration<T>(IConfigurationRoot config)
+			where T : new()
+		{
+			T result;
+
+			if (config != null)
 			{
-				try
-				{
-					// TODO
-					// This can throw System.InvalidOperationException: 'Cannot create instance of type 'System.String' because it is missing a public parameterless constructor.'
-					// However, env vars do get picked up. Tracking down if this is a transient/system-specific issue.
-					configuration.Bind(config);
-				}
-				catch
-				{ }
-			}
+				result = new();
 
-			return config;
+				config.Bind(result);
+
+			}
+			else
+				result = default;
+
+			return result;
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace pelazem.util.tests
 		public void HasChangedIsTrueOnPropertySet()
 		{
 			// Arrange
-			var tc = new TestClass();
+			TestClass tc = new();
 
 			// Act
 			tc.Name = "foo";
@@ -30,7 +30,7 @@ namespace pelazem.util.tests
 		public void HasChangedIsFalseAfterSet()
 		{
 			// Arrange
-			var tc = new TestClass();
+			TestClass tc = new();
 
 			// Act
 			tc.Name = "foo";
@@ -44,7 +44,7 @@ namespace pelazem.util.tests
 		public void FireEventsIsTrueByDefault()
 		{
 			// Arrange
-			var tc = new TestClass();
+			TestClass tc = new();
 
 			// Act
 
@@ -56,7 +56,7 @@ namespace pelazem.util.tests
 		public void FireEventsIsFalseAfterSet()
 		{
 			// Arrange
-			var tc = new TestClass();
+			TestClass tc = new();
 
 			// Act
 			tc.FireEvents = false;
@@ -69,7 +69,7 @@ namespace pelazem.util.tests
 		public void ChangeFiresPropertyChangedEvent()
 		{
 			// Arrange
-			var tc = new TestClass();
+			TestClass tc = new();
 
 			tc.PropertyChanged += GetNotified;
 
@@ -83,30 +83,6 @@ namespace pelazem.util.tests
 		private void GetNotified(object sender, PropertyChangedEventArgs e)
 		{
 			_notified = true;
-		}
-	}
-
-	internal class TestClass : Base
-	{
-		private string _name = string.Empty;
-
-		internal string Name
-		{
-			get { return _name; }
-
-			set
-			{
-				try
-				{
-					_name = value;
-					this.OnPropertyChanged(null);
-				}
-				catch
-				{
-					_name = string.Empty;
-					this.HasChanged = false;
-				}
-			}
 		}
 	}
 }

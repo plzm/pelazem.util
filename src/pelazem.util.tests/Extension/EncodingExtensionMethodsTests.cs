@@ -9,14 +9,14 @@ namespace pelazem.util.tests
 {
 	public class EncodingExtensionMethodsTests
 	{
-		private static string _rawString = "D/General/Active-Special_Servicing/2011/WFRBS_2011-C4/Closing_Binder/22._WFB_–_Master_Servicer_-_Indemnification_Agreement.pdf";
-		private static string _encodedStringSafe = "RC9HZW5lcmFsL0FjdGl2ZS1TcGVjaWFsX1NlcnZpY2luZy8yMDExL1dGUkJTXzIwMTEtQzQvQ2xvc2luZ19CaW5kZXIvMjIuX1dGQl_igJNfTWFzdGVyX1NlcnZpY2VyXy1fSW5kZW1uaWZpY2F0aW9uX0FncmVlbWVudC5wZGY";
-		private static string _encodedStringUnsafe = "RC9HZW5lcmFsL0FjdGl2ZS1TcGVjaWFsX1NlcnZpY2luZy8yMDExL1dGUkJTXzIwMTEtQzQvQ2xvc2luZ19CaW5kZXIvMjIuX1dGQl/igJNfTWFzdGVyX1NlcnZpY2VyXy1fSW5kZW1uaWZpY2F0aW9uX0FncmVlbWVudC5wZGY=";
+		private const string _rawString = "D/Zoomout/Abcdef-Stuvwxy_Zyxwvutsr/9999/FGHIJ_9999-X9/Carrots_Nectar/99._YYY_–_Wisdom_Nutrient_-_Ggggggggggggggg_Zzzzzzzzz.yyy";
+		private const string _encodedStringSafe = "RC9ab29tb3V0L0FiY2RlZi1TdHV2d3h5X1p5eHd2dXRzci85OTk5L0ZHSElKXzk5OTktWDkvQ2Fycm90c19OZWN0YXIvOTkuX1lZWV_igJNfV2lzZG9tX051dHJpZW50Xy1fR2dnZ2dnZ2dnZ2dnZ2dnX1p6enp6enp6ei55eXk=";
+		private const string _encodedStringUnsafe = "RC9ab29tb3V0L0FiY2RlZi1TdHV2d3h5X1p5eHd2dXRzci85OTk5L0ZHSElKXzk5OTktWDkvQ2Fycm90c19OZWN0YXIvOTkuX1lZWV/igJNfV2lzZG9tX051dHJpZW50Xy1fR2dnZ2dnZ2dnZ2dnZ2dnX1p6enp6enp6ei55eXk=";
 
 		[Theory]
 		[InlineData(null)]
 		[InlineData("")]
-		public void EmptyShouldReturnEmptyString(string value)
+		public void EmptyStringShouldReturnEmptyEncodedString(string value)
 		{
 			// Arrange
 
@@ -27,8 +27,22 @@ namespace pelazem.util.tests
 			Assert.True(result.Length == 0);
 		}
 
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		public void EmptyStringShouldReturnEmptyDecodedString(string value)
+		{
+			// Arrange
+
+			// Act
+			string result = Encoding.UTF8.DecodeBase64(value);
+
+			// Assert
+			Assert.True(result.Length == 0);
+		}
+
 		[Fact]
-		public void RawShouldEncodeSafe()
+		public void RawStringShouldEncodeCorrectlyWithMakeFilePathSafe()
 		{
 			// Arrange
 
@@ -40,7 +54,7 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void RawShouldEncodeUnsafe()
+		public void RawStringShouldEncodeCorrectlyWithoutMakeFilePathSafe()
 		{
 			// Arrange
 
@@ -52,7 +66,7 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void SafeShouldDecodeRaw()
+		public void EncodedSafeStringShouldDecodeCorrectlyWithFilePathReversal()
 		{
 			// Arrange
 
@@ -64,7 +78,7 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void UnsafeShouldDecodeRawEvenSafe()
+		public void EncodedUnsafeStringShouldDecodeCorrectlyWithFilePathReversal()
 		{
 			// Arrange
 
@@ -76,7 +90,7 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void UnsafeShouldDecodeRaw()
+		public void EncodedUnsafeStringShouldDecodeCorrectlyWithoutFilePathReversal()
 		{
 			// Arrange
 
@@ -86,5 +100,39 @@ namespace pelazem.util.tests
 			// Assert
 			Assert.Equal(_rawString, raw);
 		}
+
+		[Theory]
+		[InlineData("a")]
+		[InlineData("ab")]
+		[InlineData("abc")]
+		[InlineData("ab=")]
+		[InlineData("abcd=")]
+		public void TextShouldNeedToBePadded(string value)
+		{
+			// Arrange
+
+			// Act
+			bool result = EncodingExtensionMethods.EncodedTextNeedsToBePadded(value);
+
+			// Assert
+			Assert.True(result);
+		}
+
+		[Theory]
+		[InlineData("abc=")]
+		[InlineData("ab==")]
+		[InlineData("abcd")]
+		[InlineData("abcde===")]
+		public void TextShouldNotNeedToBePadded(string value)
+		{
+			// Arrange
+
+			// Act
+			bool result = EncodingExtensionMethods.EncodedTextNeedsToBePadded(value);
+
+			// Assert
+			Assert.False(result);
+		}
+
 	}
 }

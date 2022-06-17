@@ -10,53 +10,57 @@ namespace pelazem.util
 	{
 		#region Properties
 
-		public static Type TypeBool = typeof(Boolean);
-		public static Type TypeByte = typeof(Byte);
-		public static Type TypeSByte = typeof(SByte);
-		public static Type TypeChar = typeof(char);
-		public static Type TypeDateTime = typeof(DateTime);
-		public static Type TypeDecimal = typeof(Decimal);
-		public static Type TypeDouble = typeof(Double);
-		public static Type TypeGuid = typeof(Guid);
-		public static Type TypeInt16 = typeof(Int16);
-		public static Type TypeUInt16 = typeof(UInt16);
-		public static Type TypeInt32 = typeof(Int32);
-		public static Type TypeUInt32 = typeof(UInt32);
-		public static Type TypeInt64 = typeof(Int64);
-		public static Type TypeUInt64 = typeof(UInt64);
-		public static Type TypeObject = typeof(object);
-		public static Type TypeSingle = typeof(Single);
-		public static Type TypeString = typeof(String);
-		public static Type TypeVoid = typeof(void);
+		private static readonly Type TypeBool = typeof(Boolean);
+		private static readonly Type TypeByte = typeof(Byte);
+		private static readonly Type TypeSByte = typeof(SByte);
+		private static readonly Type TypeChar = typeof(char);
+		private static readonly Type TypeDateTime = typeof(DateTime);
+		private static readonly Type TypeDecimal = typeof(Decimal);
+		private static readonly Type TypeDouble = typeof(Double);
+		private static readonly Type TypeGuid = typeof(Guid);
+		private static readonly Type TypeInt16 = typeof(Int16);
+		private static readonly Type TypeUInt16 = typeof(UInt16);
+		private static readonly Type TypeInt32 = typeof(Int32);
+		private static readonly Type TypeUInt32 = typeof(UInt32);
+		private static readonly Type TypeInt64 = typeof(Int64);
+		private static readonly Type TypeUInt64 = typeof(UInt64);
+		private static readonly Type TypeObject = typeof(object);
+		private static readonly Type TypeSingle = typeof(Single);
+		private static readonly Type TypeString = typeof(String);
+		private static readonly Type TypeVoid = typeof(void);
 
-		public static Type TypeBoolNullable = typeof(Nullable<Boolean>);
-		public static Type TypeByteNullable = typeof(Nullable<Byte>);
-		public static Type TypeSByteNullable = typeof(Nullable<SByte>);
-		public static Type TypeCharNullable = typeof(Nullable<char>);
-		public static Type TypeDateTimeNullable = typeof(Nullable<DateTime>);
-		public static Type TypeDecimalNullable = typeof(Nullable<Decimal>);
-		public static Type TypeDoubleNullable = typeof(Nullable<Double>);
-		public static Type TypeGuidNullable = typeof(Nullable<Guid>);
-		public static Type TypeInt16Nullable = typeof(Nullable<Int16>);
-		public static Type TypeUInt16Nullable = typeof(Nullable<UInt16>);
-		public static Type TypeInt32Nullable = typeof(Nullable<Int32>);
-		public static Type TypeUInt32Nullable = typeof(Nullable<UInt32>);
-		public static Type TypeInt64Nullable = typeof(Nullable<Int64>);
-		public static Type TypeUInt64Nullable = typeof(Nullable<UInt64>);
-		public static Type TypeSingleNullable = typeof(Nullable<Single>);
+		private static readonly Type TypeBoolNullable = typeof(Nullable<Boolean>);
+		private static readonly Type TypeByteNullable = typeof(Nullable<Byte>);
+		private static readonly Type TypeSByteNullable = typeof(Nullable<SByte>);
+		private static readonly Type TypeCharNullable = typeof(Nullable<char>);
+		private static readonly Type TypeDateTimeNullable = typeof(Nullable<DateTime>);
+		private static readonly Type TypeDecimalNullable = typeof(Nullable<Decimal>);
+		private static readonly Type TypeDoubleNullable = typeof(Nullable<Double>);
+		private static readonly Type TypeGuidNullable = typeof(Nullable<Guid>);
+		private static readonly Type TypeInt16Nullable = typeof(Nullable<Int16>);
+		private static readonly Type TypeUInt16Nullable = typeof(Nullable<UInt16>);
+		private static readonly Type TypeInt32Nullable = typeof(Nullable<Int32>);
+		private static readonly Type TypeUInt32Nullable = typeof(Nullable<UInt32>);
+		private static readonly Type TypeInt64Nullable = typeof(Nullable<Int64>);
+		private static readonly Type TypeUInt64Nullable = typeof(Nullable<UInt64>);
+		private static readonly Type TypeSingleNullable = typeof(Nullable<Single>);
 
 		private static Dictionary<Type, string> _typeAliases = null;
 		private static List<Type> _primitiveTypes = null;
 		private static List<Type> _primitiveNullableTypes = null;
 
 		private static SortedList<string, List<PropertyInfo>> _typeProps = null;
-		private static SortedList<string, List<PropertyInfo>> _primitiveProps = new SortedList<string, List<PropertyInfo>>();
-		private static SortedList<string, List<PropertyInfo>> _complexProps = new SortedList<string, List<PropertyInfo>>();
+		private static SortedList<string, List<PropertyInfo>> _primitiveProps = null;
+		private static SortedList<string, List<PropertyInfo>> _complexProps = null;
+
+		#endregion
+
+		#region Utility lists for public methods
 
 		/// <summary>
 		/// .NET types and C# alias names
 		/// </summary>
-		public static Dictionary<Type, string> TypeAliases
+		private static Dictionary<Type, string> TypeAliases
 		{
 			get
 			{
@@ -67,7 +71,7 @@ namespace pelazem.util
 			}
 		}
 
-		public static List<Type> PrimitiveTypes
+		private static List<Type> PrimitiveTypes
 		{
 			get
 			{
@@ -78,7 +82,7 @@ namespace pelazem.util
 			}
 		}
 
-		public static List<Type> PrimitiveNullableTypes
+		private static List<Type> PrimitiveNullableTypes
 		{
 			get
 			{
@@ -89,7 +93,7 @@ namespace pelazem.util
 			}
 		}
 
-		public static SortedList<string, List<PropertyInfo>> TypeProps
+		private static SortedList<string, List<PropertyInfo>> TypeProps
 		{
 			get
 			{
@@ -100,7 +104,7 @@ namespace pelazem.util
 			}
 		}
 
-		public static SortedList<string, List<PropertyInfo>> PrimitiveProps
+		private static SortedList<string, List<PropertyInfo>> PrimitiveProps
 		{
 			get
 			{
@@ -111,7 +115,7 @@ namespace pelazem.util
 			}
 		}
 
-		public static SortedList<string, List<PropertyInfo>> ComplexProps
+		private static SortedList<string, List<PropertyInfo>> ComplexProps
 		{
 			get
 			{
@@ -164,45 +168,47 @@ namespace pelazem.util
 
 		private static void InitializePrimitiveTypes()
 		{
-			_primitiveTypes = new List<Type>();
-
-			_primitiveTypes.Add(TypeBool);
-			_primitiveTypes.Add(TypeByte);
-			_primitiveTypes.Add(TypeSByte);
-			_primitiveTypes.Add(TypeChar);
-			_primitiveTypes.Add(TypeDateTime);
-			_primitiveTypes.Add(TypeDecimal);
-			_primitiveTypes.Add(TypeDouble);
-			_primitiveTypes.Add(TypeGuid);
-			_primitiveTypes.Add(TypeInt16);
-			_primitiveTypes.Add(TypeInt32);
-			_primitiveTypes.Add(TypeInt64);
-			_primitiveTypes.Add(TypeUInt16);
-			_primitiveTypes.Add(TypeUInt32);
-			_primitiveTypes.Add(TypeUInt64);
-			_primitiveTypes.Add(TypeSingle);
-			_primitiveTypes.Add(TypeString);
+			_primitiveTypes = new List<Type>
+			{
+				TypeBool,
+				TypeByte,
+				TypeSByte,
+				TypeChar,
+				TypeDateTime,
+				TypeDecimal,
+				TypeDouble,
+				TypeGuid,
+				TypeInt16,
+				TypeInt32,
+				TypeInt64,
+				TypeUInt16,
+				TypeUInt32,
+				TypeUInt64,
+				TypeSingle,
+				TypeString
+			};
 		}
 
 		private static void InitializePrimitiveNullableTypes()
 		{
-			_primitiveNullableTypes = new List<Type>();
-
-			_primitiveNullableTypes.Add(TypeBoolNullable);
-			_primitiveNullableTypes.Add(TypeByteNullable);
-			_primitiveNullableTypes.Add(TypeSByteNullable);
-			_primitiveNullableTypes.Add(TypeCharNullable);
-			_primitiveNullableTypes.Add(TypeDateTimeNullable);
-			_primitiveNullableTypes.Add(TypeDecimalNullable);
-			_primitiveNullableTypes.Add(TypeDoubleNullable);
-			_primitiveNullableTypes.Add(TypeGuidNullable);
-			_primitiveNullableTypes.Add(TypeInt16Nullable);
-			_primitiveNullableTypes.Add(TypeUInt16Nullable);
-			_primitiveNullableTypes.Add(TypeInt32Nullable);
-			_primitiveNullableTypes.Add(TypeUInt32Nullable);
-			_primitiveNullableTypes.Add(TypeInt64Nullable);
-			_primitiveNullableTypes.Add(TypeUInt64Nullable);
-			_primitiveNullableTypes.Add(TypeSingleNullable);
+			_primitiveNullableTypes = new List<Type>
+			{
+				TypeBoolNullable,
+				TypeByteNullable,
+				TypeSByteNullable,
+				TypeCharNullable,
+				TypeDateTimeNullable,
+				TypeDecimalNullable,
+				TypeDoubleNullable,
+				TypeGuidNullable,
+				TypeInt16Nullable,
+				TypeUInt16Nullable,
+				TypeInt32Nullable,
+				TypeUInt32Nullable,
+				TypeInt64Nullable,
+				TypeUInt64Nullable,
+				TypeSingleNullable
+			};
 		}
 
 		#endregion
@@ -384,36 +390,39 @@ namespace pelazem.util
 				propType = typeInfo.GetGenericArguments().FirstOrDefault();
 
 			if (propType != null)
-			{
-				if (propType.Equals(TypeString))
-					prop.SetValueEx(entity, valueToSet.ToString());
-				else if (propType.Equals(TypeBool))
-					prop.SetValueEx(entity, Converter.GetBool(valueToSet));
-				else if (propType.Equals(TypeDateTime))
-					prop.SetValueEx(entity, Converter.GetDateTime(valueToSet));
-				else if (propType.Equals(TypeDecimal))
-					prop.SetValueEx(entity, Converter.GetDecimal(valueToSet));
-				else if (propType.Equals(TypeDouble))
-					prop.SetValueEx(entity, Converter.GetDouble(valueToSet));
-				else if (propType.Equals(TypeGuid))
-					prop.SetValueEx(entity, Converter.GetGuid(valueToSet));
-				else if (propType.Equals(TypeInt16))
-					prop.SetValueEx(entity, Converter.GetInt16(valueToSet));
-				else if (propType.Equals(TypeUInt16))
-					prop.SetValueEx(entity, Converter.GetUInt16(valueToSet));
-				else if (propType.Equals(TypeInt32))
-					prop.SetValueEx(entity, Converter.GetInt32(valueToSet));
-				else if (propType.Equals(TypeUInt32))
-					prop.SetValueEx(entity, Converter.GetUInt32(valueToSet));
-				else if (propType.Equals(TypeInt64))
-					prop.SetValueEx(entity, Converter.GetInt64(valueToSet));
-				else if (propType.Equals(TypeUInt64))
-					prop.SetValueEx(entity, Converter.GetUInt64(valueToSet));
-				else if (propType.Equals(TypeSingle))
-					prop.SetValueEx(entity, Converter.GetSingle(valueToSet));
-				else
-					prop.SetValueEx(entity, valueToSet);
-			}
+				SetValueWorker(entity, propType, prop, valueToSet);
+		}
+
+		private static void SetValueWorker(object entity, Type propType, PropertyInfo prop, object valueToSet)
+		{
+			if (propType.Equals(TypeString))
+				prop.SetValueEx(entity, valueToSet.ToString());
+			else if (propType.Equals(TypeBool))
+				prop.SetValueEx(entity, Converter.GetBool(valueToSet));
+			else if (propType.Equals(TypeDateTime))
+				prop.SetValueEx(entity, Converter.GetDateTime(valueToSet));
+			else if (propType.Equals(TypeDecimal))
+				prop.SetValueEx(entity, Converter.GetDecimal(valueToSet));
+			else if (propType.Equals(TypeDouble))
+				prop.SetValueEx(entity, Converter.GetDouble(valueToSet));
+			else if (propType.Equals(TypeGuid))
+				prop.SetValueEx(entity, Converter.GetGuid(valueToSet));
+			else if (propType.Equals(TypeInt16))
+				prop.SetValueEx(entity, Converter.GetInt16(valueToSet));
+			else if (propType.Equals(TypeUInt16))
+				prop.SetValueEx(entity, Converter.GetUInt16(valueToSet));
+			else if (propType.Equals(TypeInt32))
+				prop.SetValueEx(entity, Converter.GetInt32(valueToSet));
+			else if (propType.Equals(TypeUInt32))
+				prop.SetValueEx(entity, Converter.GetUInt32(valueToSet));
+			else if (propType.Equals(TypeInt64))
+				prop.SetValueEx(entity, Converter.GetInt64(valueToSet));
+			else if (propType.Equals(TypeUInt64))
+				prop.SetValueEx(entity, Converter.GetUInt64(valueToSet));
+			else if (propType.Equals(TypeSingle))
+				prop.SetValueEx(entity, Converter.GetSingle(valueToSet));
+			else
+				prop.SetValueEx(entity, valueToSet);
 		}
 
 		public static PropertyInfo GetProperty<TType>(Expression<Func<TType, object>> propertySelector)

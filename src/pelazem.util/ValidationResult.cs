@@ -23,7 +23,7 @@ namespace pelazem.util
 		{
 			get
 			{
-				return (_validations == null || this.Validations.Count == 0 || this.Validations.Count(v => !v.IsValid) == 0);
+				return (_validations == null || !this.Validations.Any() || this.Validations.Count(v => !v.IsValid) == 0);
 			}
 		}
 	}

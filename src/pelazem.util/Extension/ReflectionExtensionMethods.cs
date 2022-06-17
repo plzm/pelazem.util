@@ -7,12 +7,16 @@ namespace pelazem.util
 	{
 		public static object GetValueEx(this PropertyInfo prop, object obj)
 		{
-			return prop.GetValue(obj, null);
+			if (prop == null || obj == null)
+				return null;
+			else
+				return prop.GetValue(obj, null);
 		}
 
 		public static void SetValueEx(this PropertyInfo prop, object obj, object value)
 		{
-			prop.SetValue(obj, value, null);
+			if (prop != null && obj != null)
+				prop.SetValue(obj, value, null);
 		}
 	}
 }
