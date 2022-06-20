@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace pelazem.util
 {
@@ -15,6 +16,7 @@ namespace pelazem.util
 
 		#region IDisposable Members
 
+		[ExcludeFromCodeCoverage]
 		public void Dispose()
 		{
 			Dispose(true);
@@ -22,6 +24,7 @@ namespace pelazem.util
 			GC.SuppressFinalize(this);
 		}
 
+		[ExcludeFromCodeCoverage]
 		protected virtual void Dispose(bool disposing)
 		{
 			if (disposing)
@@ -53,6 +56,7 @@ namespace pelazem.util
 			}
 		}
 
+		[ExcludeFromCodeCoverage]
 		protected void DisposeNotify()
 		{
 			if (this.PropertyChanged != null)
