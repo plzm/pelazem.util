@@ -191,5 +191,19 @@ namespace pelazem.util.tests
 			Assert.NotNull(config);
 			Assert.NotEmpty(config);
 		}
+
+		[Fact]
+		public void BindConfigToNullShouldReturnDefaultT()
+		{
+			// Arrange
+			object config = null;
+			object expected = default;
+
+			// Act
+			object actual = ConfigUtil.BindConfiguration<object>(null);
+
+			// Assert
+			Assert.Equal(expected, actual);
+		}
 	}
 }
