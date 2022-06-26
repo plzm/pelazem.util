@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace pelazem.util
@@ -68,9 +69,20 @@ namespace pelazem.util
 			return encodedText.Replace('-', '+').Replace('_', '/');
 		}
 
+		/// <summary>
+		/// Encoded text may be incorrectly padded. Correct should be one or two padding characters and padded length a multiple of 4.
+		/// </summary>
+		/// <param name="encodedText"></param>
+		/// <returns></returns>
 		internal static bool EncodedTextNeedsToBePadded(string encodedText)
 		{
-			return !string.IsNullOrWhiteSpace(encodedText) && (encodedText.Length % 4) != 0;
+			return
+				!string.IsNullOrWhiteSpace(encodedText) &&
+				(
+					!encodedText.EndsWith(paddingChar)
+					||
+					(encodedText.Length % 4 > 0)
+				);
 		}
 
 		internal static string PadEncodedText(string encodedText)
