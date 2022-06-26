@@ -59,5 +59,53 @@ namespace pelazem.util.tests
 			// Assert
 			Assert.Null(result);
 		}
+
+		[Fact]
+		public void SetValueExCorrectlySetsValue()
+		{
+			// Arrange
+			ReflectionTestClass rtc = new();
+			string propName = nameof(ReflectionTestClass.Name);
+			PropertyInfo prop = typeof(ReflectionTestClass).GetProperty(propName);
+			string value = "foo";
+
+			// Act
+			prop.SetValueEx(rtc, value);
+
+			// Assert
+			Assert.Equal(value, rtc.Name);
+		}
+
+		[Fact]
+		public void SetValueExOnNullPropDoesNothing()
+		{
+			// Arrange
+			ReflectionTestClass rtc = new();
+			string propName = "fooProp";
+			PropertyInfo prop = typeof(ReflectionTestClass).GetProperty(propName);
+			string value = "foo";
+
+			// Act
+			prop.SetValueEx(rtc, value);
+
+			// Assert
+			Assert.Equal(default, rtc.Name);
+		}
+
+		[Fact]
+		public void SetValueExOnNullObjectDoesNothing()
+		{
+			// Arrange
+			ReflectionTestClass rtc = null;
+			string propName = nameof(ReflectionTestClass.Name);
+			PropertyInfo prop = typeof(ReflectionTestClass).GetProperty(propName);
+			string value = "foo";
+
+			// Act
+			prop.SetValueEx(rtc, value);
+
+			// Assert
+			Assert.Null(rtc);
+		}
 	}
 }
