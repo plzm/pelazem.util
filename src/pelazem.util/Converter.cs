@@ -23,7 +23,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					bool.TryParse(value.ToString().Trim(), out retVal);
+					bool result = bool.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -47,7 +50,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					DateTime.TryParse(value.ToString().Trim(), out retVal);
+					bool result = DateTime.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -62,7 +68,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static TimeSpan GetTimeSpan(string value)
 		{
-			TimeSpan result = TimeSpan.Zero;
+			TimeSpan retVal = TimeSpan.Zero;
 
 			if (!string.IsNullOrWhiteSpace(value))
 			{
@@ -85,13 +91,13 @@ namespace pelazem.util
 				else if (colonCount == 1)
 					value = "00:" + value;
 
-				bool itWorked = TimeSpan.TryParse(value, out result);
+				bool result = TimeSpan.TryParse(value, out retVal);
 
-				if (!itWorked)
-					result = TimeSpan.Zero;
+				if (!result)
+					retVal = default;
 			}
 
-			return result;
+			return retVal;
 		}
 
 		/// <summary>
@@ -111,7 +117,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					Decimal.TryParse(value.ToString().Trim(), out retVal);
+					bool result = Decimal.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -135,7 +144,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					Double.TryParse(value.ToString().Trim(), out retVal);
+					bool result = Double.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -149,21 +161,24 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static Guid GetGuid(object value)
 		{
-			Guid result = Guid.Empty;
+			Guid retVal = Guid.Empty;
 
 			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
 			{
 				try
 				{
-					result = new Guid(value.ToString());
+					retVal = new Guid(value.ToString());
 				}
 				catch
 				{
-					result = Guid.Empty;
+					bool result = Guid.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
-			return result;
+			return retVal;
 		}
 
 		/// <summary>
@@ -183,7 +198,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					Int16.TryParse(value.ToString().Trim(), out retVal);
+					bool result = Int16.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -207,7 +225,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					UInt16.TryParse(value.ToString().Trim(), out retVal);
+					bool result = UInt16.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -231,7 +252,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					Int32.TryParse(value.ToString().Trim(), out retVal);
+					bool result = Int32.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -255,7 +279,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					UInt32.TryParse(value.ToString().Trim(), out retVal);
+					bool result = UInt32.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -279,7 +306,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					Int64.TryParse(value.ToString().Trim(), out retVal);
+					bool result = Int64.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -303,7 +333,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					UInt64.TryParse(value.ToString().Trim(), out retVal);
+					bool result = UInt64.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
@@ -327,7 +360,10 @@ namespace pelazem.util
 				}
 				catch
 				{
-					float.TryParse(value.ToString().Trim(), out retVal);
+					bool result = float.TryParse(value.ToString().Trim(), out retVal);
+
+					if (!result)
+						retVal = default;
 				}
 			}
 
