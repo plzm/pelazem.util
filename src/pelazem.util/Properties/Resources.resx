@@ -121,16 +121,25 @@
     <value>Error</value>
   </data>
   <data name="ErrorMsgCouldNotGetErrorText" xml:space="preserve">
-    <value>Could not get Error text!!</value>
+    <value>Could not get Error text!</value>
   </data>
   <data name="ErrorMsgCouldNotGetExceptionText" xml:space="preserve">
-    <value>Could not get Exception text!!</value>
+    <value>Could not get Exception text!</value>
   </data>
   <data name="InnerException" xml:space="preserve">
     <value>Inner Exception</value>
   </data>
+  <data name="JsonSettingsFileDoesNotExist" xml:space="preserve">
+    <value>JSON settings file does not exist or could not be found at passed path!</value>
+  </data>
+  <data name="JsonSettingsFilePathNullOrWhiteSpace" xml:space="preserve">
+    <value>Null or whitespace JSON settings file was passed!</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
+  </data>
+  <data name="NullBuilderPassed" xml:space="preserve">
+    <value>Null IConfigurationBuilder was passed!</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Source</value>

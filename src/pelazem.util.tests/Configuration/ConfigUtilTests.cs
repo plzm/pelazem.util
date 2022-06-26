@@ -65,15 +65,71 @@ namespace pelazem.util.tests
 			var builder = ConfigUtil.GetConfigurationBuilder();
 
 			// Act
-			ConfigUtil.AddJsonSettingsFile(builder, settingsFilePath, true, true);
+			OpResult result = ConfigUtil.AddJsonSettingsFile(builder, settingsFilePath, true, true);
 
 			IConfigurationRoot config = ConfigUtil.GetConfiguration(builder);
 
 			// Assert
+			Assert.True(result.Succeeded);
 			Assert.Equal("A", config.GetValue<string>("Foo"));
 			Assert.Equal("B", config.GetValue<string>("Bar"));
 			Assert.Equal("C", config.GetValue<string>("Baz"));
 			Assert.Equal("D", config.GetValue<string>("Bam"));
+		}
+
+		[Fact]
+		public void BuilderShouldNotLoadJsonFileIfBuilderIsNull()
+		{
+			// Arrange
+			string settingsFileFolderName = "Configuration";
+			string settingsFileName = "ConfigUtil.Test.Settings.json";
+
+			string settingsFilePath = Path.Combine(Directory.GetCurrentDirectory(), settingsFileFolderName, settingsFileName);
+
+			IConfigurationBuilder builder = null;
+
+			// Act
+			OpResult result = ConfigUtil.AddJsonSettingsFile(builder, settingsFilePath, true, true);
+
+			// Assert
+			Assert.Null(result.Succeeded);
+		}
+
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		public void BuilderShouldNotLoadJsonFileIfFilePathIsNullOrWhiteSpace(string value)
+		{
+			// Arrange
+			string settingsFilePath = value;
+
+			var builder = ConfigUtil.GetConfigurationBuilder();
+
+			// Act
+			OpResult result = ConfigUtil.AddJsonSettingsFile(builder, settingsFilePath, true, true);
+
+			// Assert
+			Assert.Null(result.Succeeded);
+		}
+
+		[Theory]
+		[InlineData("foo.json")]
+		[InlineData("bar.json")]
+		public void BuilderShouldNotLoadJsonFileIfFileDoesNotExist(string value)
+		{
+			// Arrange
+			string settingsFileFolderName = "Configuration";
+			string settingsFileName = value;
+
+			string settingsFilePath = Path.Combine(Directory.GetCurrentDirectory(), settingsFileFolderName, settingsFileName);
+
+			var builder = ConfigUtil.GetConfigurationBuilder();
+
+			// Act
+			OpResult result = ConfigUtil.AddJsonSettingsFile(builder, settingsFilePath, true, true);
+
+			// Assert
+			Assert.Null(result.Succeeded);
 		}
 
 		[Fact]
@@ -83,13 +139,27 @@ namespace pelazem.util.tests
 			var builder = ConfigUtil.GetConfigurationBuilder();
 
 			// Act
-			ConfigUtil.AddEnvironmentVariables(builder);
+			OpResult result = ConfigUtil.AddEnvironmentVariables(builder);
 
 			IConfigurationRoot config = ConfigUtil.GetConfiguration(builder);
 
 			// Assert
+			Assert.True(result.Succeeded);
 			Assert.NotEmpty(config.Providers);
 			Assert.True(config.Providers.First() is EnvironmentVariablesConfigurationProvider);
+		}
+
+		[Fact]
+		public void BuilderShouldNotLoadEnvVarsIfBuilderIsNull()
+		{
+			// Arrange
+			IConfigurationBuilder builder = null;
+
+			// Act
+			OpResult result = ConfigUtil.AddEnvironmentVariables(builder);
+
+			// Assert
+			Assert.Null(result.Succeeded);
 		}
 
 		[Fact]

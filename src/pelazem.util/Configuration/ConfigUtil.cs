@@ -37,20 +37,61 @@ namespace pelazem.util.Configuration
 			return builder;
 		}
 
-		internal static void AddJsonSettingsFile(IConfigurationBuilder builder, string jsonSettingsFilePath, bool optional = true, bool reloadOnFileChanged = true)
+		internal static OpResult AddJsonSettingsFile(IConfigurationBuilder builder, string jsonSettingsFilePath, bool optional = true, bool reloadOnFileChanged = true)
 		{
-			if (builder == null || string.IsNullOrWhiteSpace(jsonSettingsFilePath) || !File.Exists(jsonSettingsFilePath))
-				return;
+			OpResult result = new();
 
-			builder.AddJsonFile(jsonSettingsFilePath, optional: optional, reloadOnChange: reloadOnFileChanged);
+			if (builder == null || string.IsNullOrWhiteSpace(jsonSettingsFilePath) || !File.Exists(jsonSettingsFilePath))
+			{
+				if (builder == null)
+					result.Message = Properties.Resources.NullBuilderPassed;
+				else if (string.IsNullOrWhiteSpace(jsonSettingsFilePath))
+					result.Message = Properties.Resources.JsonSettingsFilePathNullOrWhiteSpace;
+				else if (!File.Exists(jsonSettingsFilePath))
+					result.Message = Properties.Resources.JsonSettingsFileDoesNotExist;
+
+				return result;
+			}
+
+			try
+			{
+				builder.AddJsonFile(jsonSettingsFilePath, optional: optional, reloadOnChange: reloadOnFileChanged);
+
+				result.Succeeded = true;
+			}
+			catch (Exception ex)
+			{
+				result.Succeeded = false;
+				result.Exception = ex;
+			}
+
+			return result;
 		}
 
-		internal static void AddEnvironmentVariables(IConfigurationBuilder builder, string environmentVariablePrefix = "")
+		internal static OpResult AddEnvironmentVariables(IConfigurationBuilder builder, string environmentVariablePrefix = "")
 		{
-			if (builder == null)
-				return;
+			OpResult result = new();
 
-			builder.AddEnvironmentVariables(environmentVariablePrefix);
+			if (builder == null)
+			{
+				result.Message = Properties.Resources.NullBuilderPassed;
+
+				return result;
+			}
+
+			try
+			{
+				builder.AddEnvironmentVariables(environmentVariablePrefix);
+
+				result.Succeeded = true;
+			}
+			catch (Exception ex)
+			{
+				result.Succeeded = false;
+				result.Exception = ex;
+			}
+
+			return result;
 		}
 
 		internal static IConfigurationRoot GetConfiguration(IConfigurationBuilder builder)
