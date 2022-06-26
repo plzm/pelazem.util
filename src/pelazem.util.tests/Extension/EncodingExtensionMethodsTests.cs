@@ -168,6 +168,9 @@ namespace pelazem.util.tests
 		[Theory]
 		[InlineData(null)]
 		[InlineData("")]
+		[InlineData("aaaa")]
+		[InlineData("aaa=")]
+		[InlineData("aa==")]
 		public void TextShouldAddZeroWhenPadded(string value)
 		{
 			// Arrange
