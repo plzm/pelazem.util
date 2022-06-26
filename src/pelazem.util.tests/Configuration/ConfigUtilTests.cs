@@ -54,6 +54,18 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
+		public void GetConfigurationReturnsNullWithNullBuilder()
+		{
+			// Arrange
+
+			// Act
+			var config = ConfigUtil.GetConfiguration(null);
+
+			// Assert
+			Assert.Null(config);
+		}
+
+		[Fact]
 		public void BuilderShouldLoadJsonFile()
 		{
 			// Arrange
