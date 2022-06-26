@@ -102,11 +102,42 @@ namespace pelazem.util.tests
 		}
 
 		[Theory]
+		[InlineData("QUJDREVGR0g=", "ABCDEFGH")]
+		[InlineData("QUJDREVGRw==", "ABCDEFG")]
+		public void EncodedDataShouldDecodeCorrectly(string encoded, string decoded)
+		{
+			// Arrange
+
+			// Act
+			string result = Encoding.UTF8.DecodeBase64(encoded);
+
+			// Assert
+			Assert.Equal(decoded, result);
+		}
+
+		[Theory]
+		[InlineData("QUJDREVGR0g", "ABCDEFGH")]
+		[InlineData("QUJDREVGRw=", "ABCDEFG")]
+		public void EncodedDataThatIsIncorrectlyPaddedShouldDecodeCorrectly(string encoded, string decoded)
+		{
+			// Arrange
+
+			// Act
+			string result = Encoding.UTF8.DecodeBase64(encoded);
+
+			// Assert
+			Assert.Equal(decoded, result);
+		}
+
+		[Theory]
 		[InlineData("a")]
 		[InlineData("ab")]
 		[InlineData("abc")]
 		[InlineData("ab=")]
+		[InlineData("aaaa")]
+		[InlineData("abcd")]
 		[InlineData("abcd=")]
+		[InlineData("abcdefgh")]
 		public void TextShouldNeedToBePadded(string value)
 		{
 			// Arrange
@@ -121,8 +152,8 @@ namespace pelazem.util.tests
 		[Theory]
 		[InlineData("abc=")]
 		[InlineData("ab==")]
-		[InlineData("abcd")]
-		[InlineData("abcde===")]
+		[InlineData("abcdef==")]
+		[InlineData("abcdefg=")]
 		public void TextShouldNotNeedToBePadded(string value)
 		{
 			// Arrange
@@ -137,8 +168,6 @@ namespace pelazem.util.tests
 		[Theory]
 		[InlineData(null)]
 		[InlineData("")]
-		[InlineData("aaaa")]
-		[InlineData("abcdefgh")]
 		public void TextShouldAddZeroWhenPadded(string value)
 		{
 			// Arrange
@@ -151,7 +180,9 @@ namespace pelazem.util.tests
 		}
 
 		[Theory]
+		[InlineData("aa=")]
 		[InlineData("aaa")]
+		[InlineData("abcdef=")]
 		[InlineData("abcdefg")]
 		public void TextShouldAddOneWhenPadded(string value)
 		{
@@ -172,21 +203,6 @@ namespace pelazem.util.tests
 		{
 			// Arrange
 			string expected = value + new string(EncodingExtensionMethods.paddingChar, 2);
-
-			// Act
-			string result = EncodingExtensionMethods.PadEncodedText(value);
-
-			// Assert
-			Assert.Equal(expected, result);
-		}
-
-		[Theory]
-		[InlineData("a")]
-		[InlineData("abcde")]
-		public void TextShouldAddThreeWhenPadded(string value)
-		{
-			// Arrange
-			string expected = value + new string(EncodingExtensionMethods.paddingChar, 3);
 
 			// Act
 			string result = EncodingExtensionMethods.PadEncodedText(value);
