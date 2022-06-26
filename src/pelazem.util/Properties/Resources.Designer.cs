@@ -70,7 +70,7 @@ namespace pelazem.util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not get Error text!!.
+        ///   Looks up a localized string similar to Could not get Error text!.
         /// </summary>
         internal static string ErrorMsgCouldNotGetErrorText {
             get {
@@ -79,7 +79,7 @@ namespace pelazem.util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not get Exception text!!.
+        ///   Looks up a localized string similar to Could not get Exception text!.
         /// </summary>
         internal static string ErrorMsgCouldNotGetExceptionText {
             get {
@@ -97,11 +97,38 @@ namespace pelazem.util.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to JSON settings file does not exist or could not be found at passed path!.
+        /// </summary>
+        internal static string JsonSettingsFileDoesNotExist {
+            get {
+                return ResourceManager.GetString("JsonSettingsFileDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Null or whitespace JSON settings file was passed!.
+        /// </summary>
+        internal static string JsonSettingsFilePathNullOrWhiteSpace {
+            get {
+                return ResourceManager.GetString("JsonSettingsFilePathNullOrWhiteSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         internal static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Null IConfigurationBuilder was passed!.
+        /// </summary>
+        internal static string NullBuilderPassed {
+            get {
+                return ResourceManager.GetString("NullBuilderPassed", resourceCulture);
             }
         }
         

@@ -134,5 +134,65 @@ namespace pelazem.util.tests
 			Assert.False(result);
 		}
 
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		[InlineData("aaaa")]
+		[InlineData("abcdefgh")]
+		public void TextShouldAddZeroWhenPadded(string value)
+		{
+			// Arrange
+
+			// Act
+			string result = EncodingExtensionMethods.PadEncodedText(value);
+
+			// Assert
+			Assert.Equal(value, result);
+		}
+
+		[Theory]
+		[InlineData("aaa")]
+		[InlineData("abcdefg")]
+		public void TextShouldAddOneWhenPadded(string value)
+		{
+			// Arrange
+			string expected = value + EncodingExtensionMethods.paddingChar;
+
+			// Act
+			string result = EncodingExtensionMethods.PadEncodedText(value);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Theory]
+		[InlineData("aa")]
+		[InlineData("abcdef")]
+		public void TextShouldAddTwoWhenPadded(string value)
+		{
+			// Arrange
+			string expected = value + new string(EncodingExtensionMethods.paddingChar, 2);
+
+			// Act
+			string result = EncodingExtensionMethods.PadEncodedText(value);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Theory]
+		[InlineData("a")]
+		[InlineData("abcde")]
+		public void TextShouldAddThreeWhenPadded(string value)
+		{
+			// Arrange
+			string expected = value + new string(EncodingExtensionMethods.paddingChar, 3);
+
+			// Act
+			string result = EncodingExtensionMethods.PadEncodedText(value);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
 	}
 }

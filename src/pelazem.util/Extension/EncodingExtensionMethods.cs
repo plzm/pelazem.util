@@ -6,7 +6,7 @@ namespace pelazem.util
 {
 	public static class EncodingExtensionMethods
 	{
-		private static readonly char paddingChar = '=';
+		internal static readonly char paddingChar = '=';
 
 		/// <summary>
 		/// 
@@ -70,12 +70,17 @@ namespace pelazem.util
 
 		internal static bool EncodedTextNeedsToBePadded(string encodedText)
 		{
-			return !string.IsNullOrWhiteSpace(encodedText) && (encodedText.Length % 4) != 0; // && !encodedText.EndsWith(paddingChar);
+			return !string.IsNullOrWhiteSpace(encodedText) && (encodedText.Length % 4) != 0;
 		}
 
 		internal static string PadEncodedText(string encodedText)
 		{
-			return encodedText + new string(paddingChar, 4 - (encodedText.Length % 4));
+			if (string.IsNullOrEmpty(encodedText))
+				return encodedText;
+			else if ((encodedText.Length % 4) == 0)
+				return encodedText;
+			else
+				return encodedText + new string(paddingChar, 4 - (encodedText.Length % 4));
 		}
 	}
 }
