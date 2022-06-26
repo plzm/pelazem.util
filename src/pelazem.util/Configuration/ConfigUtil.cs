@@ -53,17 +53,9 @@ namespace pelazem.util.Configuration
 				return result;
 			}
 
-			try
-			{
-				builder.AddJsonFile(jsonSettingsFilePath, optional: optional, reloadOnChange: reloadOnFileChanged);
+			builder.AddJsonFile(jsonSettingsFilePath, optional: optional, reloadOnChange: reloadOnFileChanged);
 
-				result.Succeeded = true;
-			}
-			catch (Exception ex)
-			{
-				result.Succeeded = false;
-				result.Exception = ex;
-			}
+			result.Succeeded = true;
 
 			return result;
 		}
@@ -79,17 +71,9 @@ namespace pelazem.util.Configuration
 				return result;
 			}
 
-			try
-			{
-				builder.AddEnvironmentVariables(environmentVariablePrefix);
+			builder.AddEnvironmentVariables(environmentVariablePrefix);
 
-				result.Succeeded = true;
-			}
-			catch (Exception ex)
-			{
-				result.Succeeded = false;
-				result.Exception = ex;
-			}
+			result.Succeeded = true;
 
 			return result;
 		}
