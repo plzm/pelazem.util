@@ -29,7 +29,7 @@ namespace pelazem.util.tests
 		{
 			// Arrange
 			bool expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
 
 			// Act
 			bool result = Converter.GetBool(convertThis);
@@ -57,7 +57,7 @@ namespace pelazem.util.tests
 		{
 			// Arrange
 			DateTime expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
 
 			// Act
 			DateTime result = Converter.GetDateTime(convertThis);
@@ -85,7 +85,7 @@ namespace pelazem.util.tests
 		{
 			// Arrange
 			TimeSpan expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
 
 			// Act
 			TimeSpan result = Converter.GetTimeSpan(convertThis);
@@ -197,7 +197,7 @@ namespace pelazem.util.tests
 		{
 			// Arrange
 			Guid expected = default;
-			string convertThis = null;
+			string convertThis = "foo";
 
 			// Act
 			Guid result = Converter.GetGuid(convertThis);

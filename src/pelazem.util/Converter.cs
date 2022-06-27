@@ -15,19 +15,16 @@ namespace pelazem.util
 		{
 			bool retVal = false;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToBoolean(value);
-				}
-				catch
-				{
-					bool result = bool.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToBoolean(value);
+			}
+			catch
+			{
+				bool result = bool.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -42,19 +39,16 @@ namespace pelazem.util
 		{
 			DateTime retVal = DateTime.MinValue;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToDateTime(value);
-				}
-				catch
-				{
-					bool result = DateTime.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToDateTime(value);
+			}
+			catch
+			{
+				bool result = DateTime.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -109,19 +103,16 @@ namespace pelazem.util
 		{
 			Decimal retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToDecimal(value);
-				}
-				catch
-				{
-					bool result = Decimal.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToDecimal(value);
+			}
+			catch
+			{
+				bool result = Decimal.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -136,19 +127,16 @@ namespace pelazem.util
 		{
 			Double retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToDouble(value);
-				}
-				catch
-				{
-					bool result = Double.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToDouble(value);
+			}
+			catch
+			{
+				bool result = Double.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -163,19 +151,16 @@ namespace pelazem.util
 		{
 			Guid retVal = Guid.Empty;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = new Guid(value.ToString());
-				}
-				catch
-				{
-					bool result = Guid.TryParse(value.ToString().Trim(), out retVal);
+				retVal = new Guid(value.ToString());
+			}
+			catch
+			{
+				bool result = Guid.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -190,19 +175,16 @@ namespace pelazem.util
 		{
 			Int16 retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToInt16(value);
-				}
-				catch
-				{
-					bool result = Int16.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToInt16(value);
+			}
+			catch
+			{
+				bool result = Int16.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -217,19 +199,16 @@ namespace pelazem.util
 		{
 			UInt16 retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToUInt16(value);
-				}
-				catch
-				{
-					bool result = UInt16.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToUInt16(value);
+			}
+			catch
+			{
+				bool result = UInt16.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -244,19 +223,16 @@ namespace pelazem.util
 		{
 			Int32 retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToInt32(value);
-				}
-				catch
-				{
-					bool result = Int32.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToInt32(value);
+			}
+			catch
+			{
+				bool result = Int32.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -271,19 +247,16 @@ namespace pelazem.util
 		{
 			UInt32 retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToUInt32(value);
-				}
-				catch
-				{
-					bool result = UInt32.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToUInt32(value);
+			}
+			catch
+			{
+				bool result = UInt32.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -298,19 +271,16 @@ namespace pelazem.util
 		{
 			Int64 retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToInt64(value);
-				}
-				catch
-				{
-					bool result = Int64.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToInt64(value);
+			}
+			catch
+			{
+				bool result = Int64.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -325,19 +295,16 @@ namespace pelazem.util
 		{
 			UInt64 retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToUInt64(value);
-				}
-				catch
-				{
-					bool result = UInt64.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToUInt64(value);
+			}
+			catch
+			{
+				bool result = UInt64.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
@@ -352,19 +319,16 @@ namespace pelazem.util
 		{
 			float retVal = 0;
 
-			if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+			try
 			{
-				try
-				{
-					retVal = Convert.ToSingle(value);
-				}
-				catch
-				{
-					bool result = float.TryParse(value.ToString().Trim(), out retVal);
+				retVal = Convert.ToSingle(value);
+			}
+			catch
+			{
+				bool result = float.TryParse(value.ToString().Trim(), out retVal);
 
-					if (!result)
-						retVal = default;
-				}
+				if (!result)
+					retVal = default;
 			}
 
 			return retVal;
