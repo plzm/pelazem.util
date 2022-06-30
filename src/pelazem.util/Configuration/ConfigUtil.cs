@@ -96,7 +96,6 @@ namespace pelazem.util.Configuration
 				result = new();
 
 				config.Bind(result);
-
 			}
 			else
 				result = default;

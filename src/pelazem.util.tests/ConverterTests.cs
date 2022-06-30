@@ -25,7 +25,7 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetBoolFailsAndReturnsDefault()
+		public void GetBoolFailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			bool expected = default;
@@ -39,10 +39,24 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
+		public void GetBoolReturnsDefaultForNull()
+		{
+			// Arrange
+			bool expected = default;
+			object convertThis = null;
+
+			// Act
+			bool result = Converter.GetBool(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
 		public void GetDateTimeSucceeds()
 		{
 			// Arrange
-			DateTime expected = new DateTime(2022, 3, 31, 12, 30, 15); ;
+			DateTime expected = new(2022, 3, 31, 12, 30, 15);
 			string convertThis = expected.ToString(Constants.FORMAT_DATETIME_ISO8601);
 
 			// Act
@@ -53,7 +67,7 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetDateTimeFailsAndReturnsDefault()
+		public void GetDateTimeFailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			DateTime expected = default;
@@ -67,10 +81,24 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
+		public void GetDateTimeReturnsDefaultForNull()
+		{
+			// Arrange
+			DateTime expected = default;
+			object convertThis = null;
+
+			// Act
+			DateTime result = Converter.GetDateTime(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
 		public void GetTimeSpanSucceeds()
 		{
 			// Arrange
-			TimeSpan expected = new TimeSpan(1, 2, 3);
+			TimeSpan expected = new(1, 2, 3);
 			string convertThis = expected.ToString();
 
 			// Act
@@ -81,11 +109,39 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetTimeSpanFailsAndReturnsDefault()
+		public void GetTimeSpanForOver60SecondsSucceeds()
+		{
+			// Arrange
+			TimeSpan expected = new(0, 1, 15);
+			string convertThis = "75";
+
+			// Act
+			TimeSpan result = Converter.GetTimeSpan(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetTimeSpanFailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			TimeSpan expected = default;
 			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			TimeSpan result = Converter.GetTimeSpan(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetTimeSpanReturnsDefaultForNull()
+		{
+			// Arrange
+			TimeSpan expected = default;
+			object convertThis = null;
 
 			// Act
 			TimeSpan result = Converter.GetTimeSpan(convertThis);
@@ -109,11 +165,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetDecimalFailsAndReturnsDefault()
+		public void GetDecimalFailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			Decimal expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			Decimal result = Converter.GetDecimal(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetDecimalReturnsDefaultForNull()
+		{
+			// Arrange
+			Decimal expected = default;
+			object convertThis = null;
 
 			// Act
 			Decimal result = Converter.GetDecimal(convertThis);
@@ -137,11 +207,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetSingleFailsAndReturnsDefault()
+		public void GetSingleFailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			Single expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			Single result = Converter.GetSingle(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetSingleReturnsDefaultForNull()
+		{
+			// Arrange
+			Single expected = default;
+			object convertThis = null;
 
 			// Act
 			Single result = Converter.GetSingle(convertThis);
@@ -165,11 +249,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetDoubleFailsAndReturnsDefault()
+		public void GetDoubleFailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			Double expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			Double result = Converter.GetDouble(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetDoubleReturnsDefaultForNull()
+		{
+			// Arrange
+			Double expected = default;
+			object convertThis = null;
 
 			// Act
 			Double result = Converter.GetDouble(convertThis);
@@ -193,11 +291,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetGuidFailsAndReturnsDefault()
+		public void GetGuidFailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			Guid expected = default;
 			string convertThis = "foo";
+
+			// Act
+			Guid result = Converter.GetGuid(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetGuidReturnsDefaultForNull()
+		{
+			// Arrange
+			Guid expected = default;
+			object convertThis = null;
 
 			// Act
 			Guid result = Converter.GetGuid(convertThis);
@@ -221,11 +333,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetInt16FailsAndReturnsDefault()
+		public void GetInt16FailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			Int16 expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			Int16 result = Converter.GetInt16(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetInt16ReturnsDefaultForNull()
+		{
+			// Arrange
+			Int16 expected = default;
+			object convertThis = null;
 
 			// Act
 			Int16 result = Converter.GetInt16(convertThis);
@@ -249,11 +375,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetInt32FailsAndReturnsDefault()
+		public void GetInt32FailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			Int32 expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			Int32 result = Converter.GetInt32(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetInt32ReturnsDefaultForNull()
+		{
+			// Arrange
+			Int32 expected = default;
+			object convertThis = null;
 
 			// Act
 			Int32 result = Converter.GetInt32(convertThis);
@@ -277,11 +417,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetInt64FailsAndReturnsDefault()
+		public void GetInt64FailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			Int64 expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			Int64 result = Converter.GetInt64(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetInt64ReturnsDefaultForNull()
+		{
+			// Arrange
+			Int64 expected = default;
+			object convertThis = null;
 
 			// Act
 			Int64 result = Converter.GetInt64(convertThis);
@@ -305,11 +459,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetUInt16FailsAndReturnsDefault()
+		public void GetUInt16FailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			UInt16 expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			UInt16 result = Converter.GetUInt16(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetUInt16ReturnsDefaultForNull()
+		{
+			// Arrange
+			UInt16 expected = default;
+			object convertThis = null;
 
 			// Act
 			UInt16 result = Converter.GetUInt16(convertThis);
@@ -333,11 +501,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetUInt32FailsAndReturnsDefault()
+		public void GetUInt32FailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			UInt32 expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			UInt32 result = Converter.GetUInt32(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetUInt32ReturnsDefaultForNull()
+		{
+			// Arrange
+			UInt32 expected = default;
+			object convertThis = null;
 
 			// Act
 			UInt32 result = Converter.GetUInt32(convertThis);
@@ -361,11 +543,25 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
-		public void GetUInt64FailsAndReturnsDefault()
+		public void GetUInt64FailsAndReturnsDefaultForString()
 		{
 			// Arrange
 			UInt64 expected = default;
-			string convertThis = null;
+			string convertThis = Guid.NewGuid().ToString();
+
+			// Act
+			UInt64 result = Converter.GetUInt64(convertThis);
+
+			// Assert
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void GetUInt64ReturnsDefaultForNull()
+		{
+			// Arrange
+			UInt64 expected = default;
+			object convertThis = null;
 
 			// Act
 			UInt64 result = Converter.GetUInt64(convertThis);

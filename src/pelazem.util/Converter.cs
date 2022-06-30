@@ -13,7 +13,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static bool GetBool(object value)
 		{
-			bool retVal = false;
+			bool retVal;
 
 			try
 			{
@@ -21,7 +21,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = bool.TryParse(value.ToString().Trim(), out retVal);
+				bool result = bool.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -37,7 +37,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static DateTime GetDateTime(object value)
 		{
-			DateTime retVal = DateTime.MinValue;
+			DateTime retVal;
 
 			try
 			{
@@ -45,7 +45,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = DateTime.TryParse(value.ToString().Trim(), out retVal);
+				bool result = DateTime.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -60,14 +60,16 @@ namespace pelazem.util
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public static TimeSpan GetTimeSpan(string value)
+		public static TimeSpan GetTimeSpan(object value)
 		{
 			TimeSpan retVal = TimeSpan.Zero;
 
-			if (!string.IsNullOrWhiteSpace(value))
+			string input = value?.ToString().Trim();
+
+			if (!string.IsNullOrWhiteSpace(input))
 			{
 				// first check if someone passed only seconds, and if so > 60 which we'll need to convert to normal time notation
-				int secondsOnly = GetInt32(value);
+				int secondsOnly = GetInt32(input);
 
 				if (secondsOnly > 60)
 				{
@@ -75,17 +77,17 @@ namespace pelazem.util
 					double rawActualMinutes = GetDouble(secondsOnly) / 60;
 					int actualMinutes = GetInt32(rawActualMinutes);
 
-					value = actualMinutes.ToString() + ":" + (actualSeconds < 10 ? "0" : string.Empty) + actualSeconds.ToString();
+					input = actualMinutes.ToString() + ":" + (actualSeconds < 10 ? "0" : string.Empty) + actualSeconds.ToString();
 				}
 
-				int colonCount = value.Length - value.Replace(":", "").Length;
+				int colonCount = input.Length - input.Replace(":", "").Length;
 
 				if (colonCount == 0)
-					value = "00:00:" + value;
+					input = "00:00:" + input;
 				else if (colonCount == 1)
-					value = "00:" + value;
+					input = "00:" + input;
 
-				bool result = TimeSpan.TryParse(value, out retVal);
+				bool result = TimeSpan.TryParse(input, out retVal);
 
 				if (!result)
 					retVal = default;
@@ -101,7 +103,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static Decimal GetDecimal(object value)
 		{
-			Decimal retVal = 0;
+			Decimal retVal;
 
 			try
 			{
@@ -109,7 +111,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = Decimal.TryParse(value.ToString().Trim(), out retVal);
+				bool result = Decimal.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -125,7 +127,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static Double GetDouble(object value)
 		{
-			Double retVal = 0;
+			Double retVal;
 
 			try
 			{
@@ -133,7 +135,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = Double.TryParse(value.ToString().Trim(), out retVal);
+				bool result = Double.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -149,18 +151,18 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static Guid GetGuid(object value)
 		{
-			Guid retVal = Guid.Empty;
+			Guid retVal;
 
 			try
 			{
-				retVal = new Guid(value.ToString());
+				retVal = (value != null ? new Guid(value.ToString()) : Guid.Empty);
 			}
 			catch
 			{
-				bool result = Guid.TryParse(value.ToString().Trim(), out retVal);
+				bool result = Guid.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
-					retVal = default;
+					retVal = Guid.Empty;
 			}
 
 			return retVal;
@@ -173,7 +175,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static Int16 GetInt16(object value)
 		{
-			Int16 retVal = 0;
+			Int16 retVal;
 
 			try
 			{
@@ -181,7 +183,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = Int16.TryParse(value.ToString().Trim(), out retVal);
+				bool result = Int16.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -197,7 +199,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static UInt16 GetUInt16(object value)
 		{
-			UInt16 retVal = 0;
+			UInt16 retVal;
 
 			try
 			{
@@ -205,7 +207,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = UInt16.TryParse(value.ToString().Trim(), out retVal);
+				bool result = UInt16.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -221,7 +223,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static Int32 GetInt32(object value)
 		{
-			Int32 retVal = 0;
+			Int32 retVal;
 
 			try
 			{
@@ -229,7 +231,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = Int32.TryParse(value.ToString().Trim(), out retVal);
+				bool result = Int32.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -245,7 +247,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static UInt32 GetUInt32(object value)
 		{
-			UInt32 retVal = 0;
+			UInt32 retVal;
 
 			try
 			{
@@ -253,7 +255,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = UInt32.TryParse(value.ToString().Trim(), out retVal);
+				bool result = UInt32.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -269,7 +271,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static Int64 GetInt64(object value)
 		{
-			Int64 retVal = 0;
+			Int64 retVal;
 
 			try
 			{
@@ -277,7 +279,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = Int64.TryParse(value.ToString().Trim(), out retVal);
+				bool result = Int64.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -293,7 +295,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static UInt64 GetUInt64(object value)
 		{
-			UInt64 retVal = 0;
+			UInt64 retVal;
 
 			try
 			{
@@ -301,7 +303,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = UInt64.TryParse(value.ToString().Trim(), out retVal);
+				bool result = UInt64.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
@@ -317,7 +319,7 @@ namespace pelazem.util
 		/// <returns></returns>
 		public static Single GetSingle(object value)
 		{
-			float retVal = 0;
+			float retVal;
 
 			try
 			{
@@ -325,7 +327,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = float.TryParse(value.ToString().Trim(), out retVal);
+				bool result = float.TryParse(value?.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = default;
