@@ -196,7 +196,6 @@ namespace pelazem.util.tests
 		public void BindConfigToNullShouldReturnDefaultT()
 		{
 			// Arrange
-			object config = null;
 			object expected = default;
 
 			// Act
