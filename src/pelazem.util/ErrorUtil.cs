@@ -8,25 +8,26 @@ namespace pelazem.util
 	{
 		public static string GetText(Exception ex)
 		{
-			string result = string.Empty;
+			if (ex == null)
+				return string.Empty;
+
+			string result;
 
 			try
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				sb.AppendLine(Properties.Resources.Type + ": " + ex.GetType().Name);
 				sb.AppendLine(Properties.Resources.Source + ": " + ex.Source);
-				sb.AppendLine(Properties.Resources.Message + ": " + ex.Message + Environment.NewLine);
-				sb.AppendLine(Properties.Resources.StackTrace + ":" + Environment.NewLine + ex.StackTrace + Environment.NewLine);
+				sb.AppendLine(Properties.Resources.Message + ": " + ex.Message);
+				sb.AppendLine(Properties.Resources.StackTrace + ":");
+				sb.AppendLine(ex.StackTrace);
 
 				if (ex.InnerException != null)
 				{
-					sb.AppendLine();
 					sb.AppendLine(Properties.Resources.InnerException + ":");
 					sb.AppendLine(GetText(ex.InnerException));
 				}
-
-				sb.AppendLine();
 
 				result = sb.ToString();
 			}
@@ -43,14 +44,15 @@ namespace pelazem.util
 			if (errorObject == null)
 				return string.Empty;
 
-			string result = string.Empty;
+			string result;
 
 			try
 			{
 				result =
 					Properties.Resources.Type + ": " + errorObject.GetType().Name + Environment.NewLine +
 					Properties.Resources.Text + ": " + Environment.NewLine + errorObject.ToString() + Environment.NewLine +
-					Properties.Resources.StackTrace + ": " + Environment.NewLine + Environment.StackTrace + Environment.NewLine;
+					Properties.Resources.StackTrace + ":" + Environment.NewLine +
+					Environment.StackTrace + Environment.NewLine;
 			}
 			catch
 			{
