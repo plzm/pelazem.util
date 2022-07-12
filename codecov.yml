@@ -1,0 +1,6 @@
+ignore:
+  - ".github"
+  - ".vs"
+  - ".vscode"
+  - "src/.vs"
+  - "src/pelazem.util/Properties"
