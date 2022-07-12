@@ -1,10 +1,12 @@
-﻿namespace pelazem.util.tests
+﻿using System;
+
+namespace pelazem.util.tests
 {
 	internal class TestClass : Base
 	{
 		private string _name = string.Empty;
 
-		internal string Name
+		public string Name
 		{
 			get { return _name; }
 
@@ -22,6 +24,11 @@
 				}
 			}
 		}
+
+		public String StringProp { get; set; }
+		public DateTime DateTimeProp { get; set; }
+		public char CharProp { get; set; }
+		public bool BoolProp { get; set; }
 
 		public override string ToString()
 		{

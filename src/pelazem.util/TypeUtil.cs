@@ -26,6 +26,8 @@ namespace pelazem.util
 		private static readonly Type TypeUInt64 = typeof(UInt64);
 		private static readonly Type TypeObject = typeof(object);
 		private static readonly Type TypeSingle = typeof(Single);
+		private static readonly Type TypeNInt = typeof(IntPtr);
+		private static readonly Type TypeNUInt = typeof(UIntPtr);
 		private static readonly Type TypeString = typeof(String);
 		private static readonly Type TypeVoid = typeof(void);
 
@@ -44,10 +46,13 @@ namespace pelazem.util
 		private static readonly Type TypeInt64Nullable = typeof(Nullable<Int64>);
 		private static readonly Type TypeUInt64Nullable = typeof(Nullable<UInt64>);
 		private static readonly Type TypeSingleNullable = typeof(Nullable<Single>);
+		private static readonly Type TypeNIntNullable = typeof(Nullable<IntPtr>);
+		private static readonly Type TypeNUIntNullable = typeof(Nullable<UIntPtr>);
 
 		private static Dictionary<Type, string> _typeAliases = null;
 		private static List<Type> _primitiveTypes = null;
 		private static List<Type> _primitiveNullableTypes = null;
+		private static List<Type> _numericTypes = null;
 
 		private static SortedList<string, List<PropertyInfo>> _typeProps = null;
 		private static SortedList<string, List<PropertyInfo>> _primitiveProps = null;
@@ -60,7 +65,7 @@ namespace pelazem.util
 		/// <summary>
 		/// .NET types and C# alias names
 		/// </summary>
-		private static Dictionary<Type, string> TypeAliases
+		internal static Dictionary<Type, string> TypeAliases
 		{
 			get
 			{
@@ -71,7 +76,7 @@ namespace pelazem.util
 			}
 		}
 
-		private static List<Type> PrimitiveTypes
+		internal static List<Type> PrimitiveTypes
 		{
 			get
 			{
@@ -82,7 +87,7 @@ namespace pelazem.util
 			}
 		}
 
-		private static List<Type> PrimitiveNullableTypes
+		internal static List<Type> PrimitiveNullableTypes
 		{
 			get
 			{
@@ -93,7 +98,19 @@ namespace pelazem.util
 			}
 		}
 
-		private static SortedList<string, List<PropertyInfo>> TypeProps
+		internal static List<Type> NumericTypes
+		{
+			get
+			{
+				if (_numericTypes == null)
+					InitializeNumericTypes();
+
+				return _numericTypes;
+			}
+		}
+
+
+		internal static SortedList<string, List<PropertyInfo>> TypeProps
 		{
 			get
 			{
@@ -104,7 +121,7 @@ namespace pelazem.util
 			}
 		}
 
-		private static SortedList<string, List<PropertyInfo>> PrimitiveProps
+		internal static SortedList<string, List<PropertyInfo>> PrimitiveProps
 		{
 			get
 			{
@@ -115,7 +132,7 @@ namespace pelazem.util
 			}
 		}
 
-		private static SortedList<string, List<PropertyInfo>> ComplexProps
+		internal static SortedList<string, List<PropertyInfo>> ComplexProps
 		{
 			get
 			{
@@ -148,6 +165,8 @@ namespace pelazem.util
 				{ TypeUInt64, "ulong" },
 				{ TypeObject, "object" },
 				{ TypeSingle, "float" },
+				{ TypeNInt, "nint" },
+				{ TypeNUInt, "nuint" },
 				{ TypeString, "string" },
 				{ TypeVoid, "void" },
 				{ TypeBoolNullable, "bool?" },
@@ -162,7 +181,9 @@ namespace pelazem.util
 				{ TypeUInt32Nullable, "uint?" },
 				{ TypeInt64Nullable, "long?" },
 				{ TypeUInt64Nullable, "ulong?" },
-				{ TypeSingleNullable, "float?" }
+				{ TypeSingleNullable, "float?" },
+				{ TypeNIntNullable, "nint?" },
+				{ TypeNUIntNullable, "nuint?" }
 			};
 		}
 
@@ -185,6 +206,8 @@ namespace pelazem.util
 				TypeUInt32,
 				TypeUInt64,
 				TypeSingle,
+				TypeNInt,
+				TypeNUInt,
 				TypeString
 			};
 		}
@@ -207,7 +230,42 @@ namespace pelazem.util
 				TypeUInt32Nullable,
 				TypeInt64Nullable,
 				TypeUInt64Nullable,
-				TypeSingleNullable
+				TypeSingleNullable,
+				TypeNIntNullable,
+				TypeNUIntNullable
+			};
+		}
+
+		private static void InitializeNumericTypes()
+		{
+			_numericTypes = new List<Type>
+			{
+				TypeByte,
+				TypeByteNullable,
+				TypeSByte,
+				TypeSByteNullable,
+				TypeDecimal,
+				TypeDecimalNullable,
+				TypeDouble,
+				TypeDoubleNullable,
+				TypeInt16,
+				TypeInt16Nullable,
+				TypeUInt16,
+				TypeUInt16Nullable,
+				TypeInt32,
+				TypeInt32Nullable,
+				TypeUInt32,
+				TypeUInt32Nullable,
+				TypeInt64,
+				TypeInt64Nullable,
+				TypeUInt64,
+				TypeUInt64Nullable,
+				TypeSingle,
+				TypeSingleNullable,
+				TypeNInt,
+				TypeNIntNullable,
+				TypeNUInt,
+				TypeNUIntNullable
 			};
 		}
 
@@ -225,31 +283,7 @@ namespace pelazem.util
 			if (type == null || type == TypeString || type == TypeChar || type == TypeVoid)
 				return false;
 
-			return
-			(
-				type.Equals(TypeByte) ||
-				type.Equals(TypeByteNullable) ||
-				type.Equals(TypeSByte) ||
-				type.Equals(TypeSByteNullable) ||
-				type.Equals(TypeDecimal) ||
-				type.Equals(TypeDecimalNullable) ||
-				type.Equals(TypeDouble) ||
-				type.Equals(TypeDoubleNullable) ||
-				type.Equals(TypeInt16) ||
-				type.Equals(TypeInt16Nullable) ||
-				type.Equals(TypeUInt16) ||
-				type.Equals(TypeUInt16Nullable) ||
-				type.Equals(TypeInt32) ||
-				type.Equals(TypeInt32Nullable) ||
-				type.Equals(TypeUInt32) ||
-				type.Equals(TypeUInt32Nullable) ||
-				type.Equals(TypeInt64) ||
-				type.Equals(TypeInt64Nullable) ||
-				type.Equals(TypeUInt64) ||
-				type.Equals(TypeUInt64Nullable) ||
-				type.Equals(TypeSingle) ||
-				type.Equals(TypeSingleNullable)
-			);
+			return NumericTypes.Contains(type);
 		}
 
 		public static bool IsPrimitive(PropertyInfo prop)
@@ -269,7 +303,7 @@ namespace pelazem.util
 		}
 
 		/// <summary>
-		/// Returns the simple alias for a type name. For example, given System.Int32, returns int.
+		/// Returns the simple alias for a type name. For example, given System.Int32, returns int. If no simple alias is found, returns the type name.
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
@@ -287,7 +321,7 @@ namespace pelazem.util
 
 		public static List<PropertyInfo> GetProps(Type type)
 		{
-			if (!TypeProps.Keys.Contains(type.FullName))
+			if (!TypeProps.ContainsKey(type.FullName))
 				TypeProps.Add(type.FullName, type.GetRuntimeProperties().ToList<PropertyInfo>());
 
 			return TypeProps[type.FullName];
@@ -295,7 +329,7 @@ namespace pelazem.util
 
 		public static List<PropertyInfo> GetPrimitiveProps(Type type)
 		{
-			if (!PrimitiveProps.Keys.Contains(type.FullName))
+			if (!PrimitiveProps.ContainsKey(type.FullName))
 				PrimitiveProps.Add(type.FullName, GetProps(type).Where(p => PrimitiveTypes.Contains(p.PropertyType) || PrimitiveNullableTypes.Contains(p.PropertyType)).ToList());
 
 			return PrimitiveProps[type.FullName];
@@ -303,7 +337,7 @@ namespace pelazem.util
 
 		public static List<PropertyInfo> GetComplexProps(Type type)
 		{
-			if (!ComplexProps.Keys.Contains(type.FullName))
+			if (!ComplexProps.ContainsKey(type.FullName))
 				ComplexProps.Add(type.FullName, GetProps(type).Where(p => !PrimitiveTypes.Contains(p.PropertyType) && !PrimitiveNullableTypes.Contains(p.PropertyType)).ToList());
 
 			return ComplexProps[type.FullName];
