@@ -382,19 +382,23 @@ namespace pelazem.util
 				if (xType.Equals(TypeString))
 					return string.Compare(xValue.ToString(), yValue.ToString(), StringComparison.CurrentCultureIgnoreCase);
 				else if (xType.Equals(TypeGuid))
-					return string.Compare(xValue.ToString(), yValue.ToString(), StringComparison.CurrentCultureIgnoreCase);
+					return Comparer<Guid>.Default.Compare(Converter.GetGuid(xValue), Converter.GetGuid(yValue));
 				else if (xType.Equals(TypeBool))
 					return Comparer<Boolean>.Default.Compare(Converter.GetBool(xValue), Converter.GetBool(yValue));
 				else if (xType.Equals(TypeDateTime))
 					return DateTime.Compare(Converter.GetDateTime(xValue), Converter.GetDateTime(yValue));
+				else if (xType.Equals(TypeSingle))
+					return Comparer<Single>.Default.Compare(Converter.GetSingle(xValue), Converter.GetSingle(yValue));
 				else if (xType.Equals(TypeDouble))
 					return Comparer<Double>.Default.Compare(Converter.GetDouble(xValue), Converter.GetDouble(yValue));
+				else if (xType.Equals(TypeDecimal))
+					return Comparer<Decimal>.Default.Compare(Converter.GetDecimal(xValue), Converter.GetDecimal(yValue));
+				else if (xType.Equals(TypeInt16))
+					return Comparer<Int16>.Default.Compare(Converter.GetInt16(xValue), Converter.GetInt16(yValue));
 				else if (xType.Equals(TypeInt32))
 					return Comparer<Int32>.Default.Compare(Converter.GetInt32(xValue), Converter.GetInt32(yValue));
 				else if (xType.Equals(TypeInt64))
 					return Comparer<Int64>.Default.Compare(Converter.GetInt64(xValue), Converter.GetInt64(yValue));
-				else if (xType.Equals(TypeSingle))
-					return Comparer<Single>.Default.Compare(Converter.GetSingle(xValue), Converter.GetSingle(yValue));
 				else
 					return string.Compare(xValue.ToString(), yValue.ToString(), StringComparison.CurrentCultureIgnoreCase);
 			}
