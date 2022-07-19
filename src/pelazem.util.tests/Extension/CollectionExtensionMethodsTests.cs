@@ -120,7 +120,7 @@ namespace pelazem.util.tests
 			else if (!delimitedList.StartsWith(delimiter))
 				Assert.Equal(delimitedList, result);
 			else
-				Assert.Equal(delimitedList.Substring(1), result);
+				Assert.Equal(delimitedList[1..], result);
 		}
 
 		[Theory]
@@ -164,11 +164,13 @@ namespace pelazem.util.tests
 		{
 			// Arrange
 			string delim = ",";
-			List<string> testList = new();
-			testList.Add(" ");
-			testList.Add(null);
-			testList.Add("    ");
-			testList.Add(" ");
+			List<string> testList = new()
+			{
+				" ",
+				null,
+				"    ",
+				" "
+			};
 
 			// Act
 			string test = testList.GetDelimitedList(delim, string.Empty, false);
@@ -182,11 +184,13 @@ namespace pelazem.util.tests
 		{
 			// Arrange
 			string delim = ",";
-			List<string> testList = new();
-			testList.Add(" ");
-			testList.Add(null);
-			testList.Add("    ");
-			testList.Add(" ");
+			List<string> testList = new()
+			{
+				" ",
+				null,
+				"    ",
+				" "
+			};
 			string expectedValue = " ,,    , ";
 
 			// Act
@@ -349,10 +353,5 @@ namespace pelazem.util.tests
 			// Assert
 			Assert.Equal(expectedValue, result);
 		}
-	}
-
-	internal class Sample
-	{
-		public int Id { get; set; }
 	}
 }

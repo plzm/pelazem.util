@@ -243,6 +243,18 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
+		public void GetTypeAliasReturnsEmptyStringForNullType()
+		{
+			// Arrange
+
+			// Act
+			string result = TypeUtil.GetTypeAlias(null);
+
+			// Assert
+			Assert.True(string.IsNullOrWhiteSpace(result));
+		}
+
+		[Fact]
 		public void GetPropsCorrectlyReturnsList()
 		{
 			// Arrange
@@ -279,6 +291,36 @@ namespace pelazem.util.tests
 			// Assert
 			Assert.NotNull(props);
 			Assert.True(props.Count > 0);
+		}
+
+		[Fact]
+		public void CompareIsCorrectWhenTermTypesAreDifferent()
+		{
+			// Arrange
+			int term1 = 1;
+			string term2 = "2";
+			int expectedResult = -1;
+
+			// Act
+			int actualResult = TypeUtil.Compare(term1, term2);
+
+			// Assert
+			Assert.Equal(expectedResult, actualResult);
+		}
+
+		[Fact]
+		public void CompareIsCorrectWhenTermTypeFallsThrough()
+		{
+			// Arrange
+			UInt32 term1 = 1;
+			UInt32 term2 = 2;
+			int expectedResult = -1;
+
+			// Act
+			int actualResult = TypeUtil.Compare<UInt32>(term1, term2);
+
+			// Assert
+			Assert.Equal(expectedResult, actualResult);
 		}
 
 		[Fact]
@@ -331,12 +373,11 @@ namespace pelazem.util.tests
 
 			// Assert
 			Assert.Equal(expectedResult, actualResult);
-
 		}
 
 		public static IEnumerable<object[]> FirstTermGreaterPairs()
 		{
-			List<ComparisonTerms> terms = new List<ComparisonTerms>()
+			List<ComparisonTerms> terms = new()
 			{
 				new ComparisonTerms() {FirstTerm = Boolean.Parse("true"), SecondTerm = Boolean.Parse("false")},
 				new ComparisonTerms() {FirstTerm = DateTime.MaxValue, SecondTerm = DateTime.MinValue},
