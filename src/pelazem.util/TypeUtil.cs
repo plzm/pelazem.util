@@ -109,7 +109,6 @@ namespace pelazem.util
 			}
 		}
 
-
 		internal static SortedList<string, List<PropertyInfo>> TypeProps
 		{
 			get
