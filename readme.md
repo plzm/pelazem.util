@@ -2,7 +2,7 @@
 [![Nuget:pelazem.util](https://img.shields.io/nuget/v/pelazem.util)](https://www.nuget.org/packages/pelazem.util/)
 
 Workflows  
-[![Validate GHA Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml)
+[![Validate GitHub Actions Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml)
 [![Build and Test](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml)
 [![Publish](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml)
 
