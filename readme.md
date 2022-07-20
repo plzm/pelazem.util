@@ -1,4 +1,5 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)
+[![Nuget:pelazem.util](https://img.shields.io/nuget/v/pelazem.util)](https://www.nuget.org/packages/pelazem.util/)
 
 Workflows  
 [![Validate GHA Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml)
