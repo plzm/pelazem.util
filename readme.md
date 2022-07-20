@@ -4,7 +4,7 @@
 Workflows  
 [![Validate GitHub Actions Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml)
 [![Build and Test](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml)
-[![Publish](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml)
+[![Publish to Nuget](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml)
 
 SonarCloud  
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=coverage)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)
