@@ -318,6 +318,11 @@ namespace pelazem.util
 
 		#region Property-related Methods
 
+		public static PropertyInfo GetProp(Type type, string propertyName)
+		{
+			return GetProps(type).FirstOrDefault(p => p.Name.ToLowerInvariant() == propertyName.Trim().ToLowerInvariant());
+		}
+
 		public static List<PropertyInfo> GetProps(Type type)
 		{
 			if (!TypeProps.ContainsKey(type.FullName))
@@ -401,102 +406,6 @@ namespace pelazem.util
 				else
 					return string.Compare(xValue.ToString(), yValue.ToString(), StringComparison.CurrentCultureIgnoreCase);
 			}
-		}
-
-		#endregion
-
-		#region Property Set and Get
-
-		/// <summary>
-		/// Sets the property value on the passed entity to the passed value. Attempts to convert to the property's type to avoid cast errors.
-		/// </summary>
-		/// <param name="entity"></param>
-		/// <param name="prop"></param>
-		/// <param name="valueToSet"></param>
-		public static void SetValue(object entity, PropertyInfo prop, object valueToSet)
-		{
-			if (!prop.CanWrite)
-				return;
-
-			Type propType = null;
-			TypeInfo typeInfo = prop.PropertyType.GetTypeInfo();
-
-			if ((typeInfo.IsPrimitive || prop.PropertyType.Equals(typeof(System.String)) || prop.PropertyType.Equals(typeof(System.Guid))))
-				propType = prop.PropertyType;
-			else if (typeInfo.IsGenericType && prop.PropertyType.Name.StartsWith("Nullable"))
-				propType = typeInfo.GetGenericArguments().FirstOrDefault();
-
-			if (propType != null)
-				SetValueWorker(entity, propType, prop, valueToSet);
-		}
-
-		private static void SetValueWorker(object entity, Type propType, PropertyInfo prop, object valueToSet)
-		{
-			if (propType.Equals(TypeString))
-				prop.SetValueEx(entity, valueToSet.ToString());
-			else if (propType.Equals(TypeBool))
-				prop.SetValueEx(entity, Converter.GetBool(valueToSet));
-			else if (propType.Equals(TypeDateTime))
-				prop.SetValueEx(entity, Converter.GetDateTime(valueToSet));
-			else if (propType.Equals(TypeDecimal))
-				prop.SetValueEx(entity, Converter.GetDecimal(valueToSet));
-			else if (propType.Equals(TypeDouble))
-				prop.SetValueEx(entity, Converter.GetDouble(valueToSet));
-			else if (propType.Equals(TypeGuid))
-				prop.SetValueEx(entity, Converter.GetGuid(valueToSet));
-			else if (propType.Equals(TypeInt16))
-				prop.SetValueEx(entity, Converter.GetInt16(valueToSet));
-			else if (propType.Equals(TypeUInt16))
-				prop.SetValueEx(entity, Converter.GetUInt16(valueToSet));
-			else if (propType.Equals(TypeInt32))
-				prop.SetValueEx(entity, Converter.GetInt32(valueToSet));
-			else if (propType.Equals(TypeUInt32))
-				prop.SetValueEx(entity, Converter.GetUInt32(valueToSet));
-			else if (propType.Equals(TypeInt64))
-				prop.SetValueEx(entity, Converter.GetInt64(valueToSet));
-			else if (propType.Equals(TypeUInt64))
-				prop.SetValueEx(entity, Converter.GetUInt64(valueToSet));
-			else if (propType.Equals(TypeSingle))
-				prop.SetValueEx(entity, Converter.GetSingle(valueToSet));
-			else
-				prop.SetValueEx(entity, valueToSet);
-		}
-
-		public static PropertyInfo GetProperty<TType>(Expression<Func<TType, object>> propertySelector)
-		{
-			PropertyInfo result = null;
-
-			// we should have been passed a lambda that returns the property in question; get its body
-			Expression expression = propertySelector.Body;
-
-			// if the lambda refers to a conversion, we need to get at the actual property
-			if (expression.NodeType == ExpressionType.Convert || expression.NodeType == ExpressionType.ConvertChecked)
-				expression = ((UnaryExpression)expression).Operand;
-
-			// make sure what was passed is really a property (i.e. member accessor) and if not, throw and leave
-			MemberExpression memberExpression = expression as MemberExpression;
-
-			if (memberExpression == null)
-				return result;
-
-			// //////////
-			// do some additional sanity checks
-			expression = memberExpression.Expression;
-
-			// if property returns ValueType we need to eliminate the conversion - do this again since we have drilled in to get the property's container
-			if (expression.NodeType == ExpressionType.Convert || expression.NodeType == ExpressionType.ConvertChecked)
-				expression = ((UnaryExpression)expression).Operand;
-
-			// Check if the expression is the parameter itself
-			if (expression.NodeType != ExpressionType.Parameter)
-				return result;
-			// end sanity checks
-			// //////////
-
-			// Finally (!) retrieve the property's PropertyInfo and return it
-			result = memberExpression.Member as PropertyInfo;
-
-			return result;
 		}
 
 		#endregion

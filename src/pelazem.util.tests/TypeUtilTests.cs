@@ -255,6 +255,33 @@ namespace pelazem.util.tests
 		}
 
 		[Fact]
+		public void GetPropReturnsProperty()
+		{
+			// Arrange
+			string propertyName = nameof(TestClass.Name);
+			
+			// Act
+			PropertyInfo prop = TypeUtil.GetProp(typeof(TestClass), propertyName);
+
+			// Assert
+			Assert.NotNull(prop);
+			Assert.Equal(propertyName, prop.Name);
+		}
+
+		[Fact]
+		public void GetPropReturnsNullForNonExistentProperty()
+		{
+			// Arrange
+			string propertyName = "ThisDoesNotExist";
+
+			// Act
+			PropertyInfo prop = TypeUtil.GetProp(typeof(TestClass), propertyName);
+
+			// Assert
+			Assert.Null(prop);
+		}
+
+		[Fact]
 		public void GetPropsCorrectlyReturnsList()
 		{
 			// Arrange
