@@ -1,21 +1,22 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/plzm/pelazem.util/blob/main/LICENSE)
+[![Nuget:pelazem.util](https://img.shields.io/nuget/v/pelazem.util)](https://www.nuget.org/packages/pelazem.util/)
 
 Workflows  
-[![Validate GHA Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml)  
-[![Build and Test](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml)  
-[![Publish](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml)  
+[![Validate GitHub Actions Workflows](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/validate-workflows.yml)
+[![Build and Test](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/build-test.yml)
+[![Publish to Nuget](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml/badge.svg)](https://github.com/plzm/pelazem.util/actions/workflows/publish.yml)
 
 SonarCloud  
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=coverage)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=bugs)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)  
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=coverage)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=bugs)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=plzm_pelazem.util&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=plzm_pelazem.util)
 
 Other  
-[![CodeFactor](https://www.codefactor.io/repository/github/plzm/pelazem.util/badge)](https://www.codefactor.io/repository/github/plzm/pelazem.util)  
-[![Codecov.io](https://codecov.io/gh/plzm/pelazem.util/branch/main/graph/badge.svg?token=7M2A9GV73P)](https://codecov.io/gh/plzm/pelazem.util)  
+[![CodeFactor](https://www.codefactor.io/repository/github/plzm/pelazem.util/badge)](https://www.codefactor.io/repository/github/plzm/pelazem.util)
+[![Codecov.io](https://codecov.io/gh/plzm/pelazem.util/branch/main/graph/badge.svg?token=7M2A9GV73P)](https://codecov.io/gh/plzm/pelazem.util)
 
 ## Utility Library
 
@@ -30,7 +31,7 @@ pelazem.util: a C# utility library with build targets for .NET 6.0 and .NET Stan
 - [Converter.cs](src/pelazem.util/Converter.cs): yet another safe type converter. Includes string to Timespan converter that includes some error checking and other smarts.
 - [ErrorUtil.cs](src/pelazem.util/ErrorUtil.cs): utility methods to prettify Exception messages into strings suitable for display or external storage.
 - [OpResult.cs](src/pelazem.util/OpResult.cs): a result class to return rich result data from methods in a standard, non-ref way.
-- [TypeUtil.cs](src/pelazem.util/TypeUtil.cs): lots of type and reflection utility methods, including checks whether a PropertyInfo or Type is numeric or primitive, getting type aliases, reflecting over a type to get its properties (all or just primitive or complex), ref type value comparisons, and property value setter with conversion of passed value to property type, and getting a property from a property selector Expression<Func<T>>.
+- [TypeUtil.cs](src/pelazem.util/TypeUtil.cs): type and reflection utility methods, including checks whether a PropertyInfo or Type is numeric or primitive, getting type aliases, reflecting over a type to get its properties (all or just primitive or complex), ref type value comparisons.
 - [ValidationResult.cs](src/pelazem.util/ValidationResult.cs): helper for classes which need to track whether their properties are in a valid state, and quickly getting validity status.
 
 ---
