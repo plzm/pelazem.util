@@ -69,6 +69,12 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '21'
+
       - name: Install dotnet-coverage
         if: success()
         run: dotnet tool install --global dotnet-coverage
@@ -99,7 +105,7 @@ jobs:
       - name: Install SonarCloud scanner
         if: success() && steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
-          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+          dotnet tool update --global dotnet-sonarscanner --tool-path ./.sonar/scanner
 
       - name: Build and analyze
         if: success()
