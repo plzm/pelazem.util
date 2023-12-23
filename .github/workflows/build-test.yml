@@ -21,14 +21,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
 
       - name: Restore dependencies
         run: dotnet restore
@@ -46,7 +46,7 @@ jobs:
 
       - name: Codecov
         if: success()
-        uses: codecov/codecov-action@v3.1.0
+        uses: codecov/codecov-action@v3.1.4
         with:
           name: codecov-unit-tests
           directory: "${{ env.SRC_PATH }}pelazem.util.tests/"
@@ -60,14 +60,14 @@ jobs:
     needs: build-test
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
 
       - name: Install dotnet-coverage
         if: success()
@@ -81,7 +81,7 @@ jobs:
 
       - name: Cache SonarCloud packages
         if: success()
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ./.sonar/cache
           key: ${{ runner.os }}-sonar
@@ -90,7 +90,7 @@ jobs:
       - name: Cache SonarCloud scanner
         if: success()
         id: cache-sonar-scanner
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ./.sonar/scanner
           key: ${{ runner.os }}-sonar-scanner
