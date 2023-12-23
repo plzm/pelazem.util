@@ -105,7 +105,7 @@ jobs:
       - name: Install SonarCloud scanner
         if: success() && steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
-          dotnet tool update --global dotnet-sonarscanner --tool-path ./.sonar/scanner
+          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
       - name: Build and analyze
         if: success()
