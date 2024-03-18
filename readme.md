@@ -20,7 +20,7 @@ Other
 
 ## Utility Library
 
-pelazem.util: a C# utility library with build targets for .NET 6.0 and .NET 7.0.
+pelazem.util: a C# utility library with build targets for .NET 8.0.
 
 - [Class/Base.cs](src/pelazem.util/Class/Base.cs): a simple abstract base class which implements a property change notification pattern. Includes a toggle to fire events (useful to turn off in certain bulk scenarios) and a semaphore whether the object is in a property changed state.
 - [Configuration/ConfigUtil.cs](src/pelazem.util/Configuration/ConfigUtil.cs): implements configuration build with optional JSON settings file and environment variables.
