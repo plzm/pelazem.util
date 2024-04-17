@@ -18,10 +18,15 @@ namespace pelazem.util
 
 		internal static string GetString<T>(T item, bool includeEmptyItems)
 		{
-			if (item == null)
+			bool isNullable = (item == null || Nullable.GetUnderlyingType(typeof(T)) != null);
+
+			if ((!isNullable && item.Equals(default(T))) || (isNullable && item == null))
 				return string.Empty;
 
-			string result = (includeEmptyItems ? item.ToString() : item.ToString().Trim());
+			string result = item.ToString();
+
+			if (!includeEmptyItems)
+				result = result?.Trim() ?? string.Empty;
 
 			return result;
 		}
