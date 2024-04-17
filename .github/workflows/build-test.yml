@@ -3,11 +3,15 @@ name: Build and Test
 on:
   workflow_dispatch:
   push:
+    branches-ignore:
+      - 'dependabot/**'
     paths:
       - '.github/workflows/**'
       - 'src/**'
   pull_request:
     types: [opened, synchronize, reopened]
+    branches-ignore:
+      - 'dependabot/**'
     paths:
       - '.github/workflows/**'
       - 'src/**'
