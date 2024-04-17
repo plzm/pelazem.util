@@ -3,8 +3,6 @@ name: Validate GitHub Actions Workflows
 on:
   workflow_dispatch:
   push:
-    branches-ignore:
-      - main
     paths:
       - '.github/workflows/**'
 
