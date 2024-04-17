@@ -50,12 +50,12 @@ jobs:
 
       - name: Codecov
         if: success()
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v4
         with:
-          name: codecov-unit-tests
-          directory: "${{ env.SRC_PATH }}pelazem.util.tests/"
-          flags: unit-tests
           fail_ci_if_error: true
+          flags: unittests
+          name: codecov-unit-tests
+          token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
 
   sonarcloud:
