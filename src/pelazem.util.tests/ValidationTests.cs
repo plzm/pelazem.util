@@ -46,7 +46,7 @@ namespace pelazem.util.tests
 			Validation v = new();
 
 			// Assert
-			Assert.True(v.Message.Length == 0);
+			Assert.Equal(0, v.Message.Length);
 		}
 
 		[Fact]

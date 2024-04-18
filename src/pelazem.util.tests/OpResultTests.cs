@@ -192,7 +192,7 @@ namespace pelazem.util.tests
 			OpResult o = new();
 
 			// Assert
-			Assert.True(o.Message.Length == 0);
+			Assert.Equal(0, o.Message.Length);
 		}
 
 		[Fact]

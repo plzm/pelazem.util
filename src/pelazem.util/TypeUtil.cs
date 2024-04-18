@@ -320,7 +320,7 @@ namespace pelazem.util
 
 		public static PropertyInfo GetProp(Type type, string propertyName)
 		{
-			return GetProps(type).FirstOrDefault(p => p.Name.ToLowerInvariant() == propertyName.Trim().ToLowerInvariant());
+      return GetProps(type).Find(p => p.Name.ToLowerInvariant() == propertyName.Trim().ToLowerInvariant());
 		}
 
 		public static List<PropertyInfo> GetProps(Type type)

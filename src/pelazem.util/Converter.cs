@@ -159,7 +159,7 @@ namespace pelazem.util
 			}
 			catch
 			{
-				bool result = Guid.TryParse(value?.ToString().Trim(), out retVal);
+				bool result = Guid.TryParse(value.ToString().Trim(), out retVal);
 
 				if (!result)
 					retVal = Guid.Empty;

@@ -24,7 +24,7 @@ namespace pelazem.util.tests
 			string result = Encoding.UTF8.EncodeBase64(value);
 
 			// Assert
-			Assert.True(result.Length == 0);
+			Assert.Equal(0, result.Length);
 		}
 
 		[Theory]
@@ -38,7 +38,7 @@ namespace pelazem.util.tests
 			string result = Encoding.UTF8.DecodeBase64(value);
 
 			// Assert
-			Assert.True(result.Length == 0);
+			Assert.Equal(0, result.Length);
 		}
 
 		[Fact]
